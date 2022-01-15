@@ -18,6 +18,7 @@ class CreateArticlePostsTable extends Migration
             $table->foreignUuid('article_id');
             $table->foreignUuid('category_id');
             $table->foreignUuid('index_id');
+            $table->foreignUuid('document_id');
             $table->foreignUuid('user_id');
             $table->bigInteger('views');
         });

@@ -168,7 +168,7 @@ h1,h2,h3,h4,h5,h6 {
 	background: radial-gradient( circle 939px at 94.7% 50%,  rgba(0,178,169,1) 0%, rgba(0,106,101,1) 76.9% ); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b2a9', endColorstr='#006a65',GradientType=0 ); /* IE6-8 */
 	border-top: solid 1px #006a65;
-	border-bottom: solid 1px #999;
+	/* border-bottom: solid 1px #999; */
 	padding:15px;
 	color: #fff;
 	text-align: center;
@@ -1150,7 +1150,7 @@ h4.title {
 
 	.footer
 	{
-		position: relative;
+		/* position: relative; */
 		text-align: center;
 		padding:10px;
 	}

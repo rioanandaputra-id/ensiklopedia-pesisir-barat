@@ -28,11 +28,14 @@
         <div class="container">
             @yield('content')
 
-            @section('footer')
-            @include('Layouts.Frontend.footer')
-            @show
+
         </div>
     </div>
+
+
+    @section('footer')
+    @include('Layouts.Frontend.footer')
+    @show
 
     <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/form.js') }}"></script>

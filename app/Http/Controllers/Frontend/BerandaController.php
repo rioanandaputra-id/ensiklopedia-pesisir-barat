@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ArticleCategory;
+use App\Models\ArticleIndex;
+use Ramsey\Uuid\Uuid;
 
 class BerandaController extends Controller
 {
@@ -12,9 +15,32 @@ class BerandaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Pages.Frontend.Beranda.index');
+        if (!empty($request->cari)) {
+            # code...
+        }
+        if (!empty($request->kategori)) {
+            # code...
+        }
+        if (!empty($request->index)) {
+            # code...
+        }
+
+// $id1 = Uuid::uuid4();
+// $id2 = Uuid::uuid4();
+
+
+
+// echo $id1.'<br>';
+// echo $id1.'<br>';
+
+// echo $id2.'<br>';
+// echo $id2;
+
+        $ArticleCategory = ArticleCategory::orderBy('name', 'asc')->get();
+        $ArticleIndex = ArticleIndex::orderBy('name', 'asc')->get();
+        return view('pages.frontend.beranda/index', compact('ArticleCategory','ArticleIndex'));
     }
 
     /**

@@ -13,11 +13,11 @@ class CreateUserProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_profiles', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('user_id');
-            $table->foreignUuid('document_id');
-        });
+        // Schema::create('user_profiles', function (Blueprint $table) {
+        //     $table->uuid('id')->primary();
+        //     $table->foreignUuid('user_id');
+        //     $table->foreignUuid('document_id');
+        // });
     }
 
     /**

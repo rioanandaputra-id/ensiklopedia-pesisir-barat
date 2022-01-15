@@ -2,7 +2,7 @@
     <div class="navbar-inner">
         <div class="container">
             <form class="navbar-form pull-right language" name="langSelect"
-                action="http://library.uny.ac.id/sirkulasi/index.php" method="get">
+                action="{{url('/')}}" method="get">
                 <span class="language-info">Pilih Bahasa</span>
                 <select name="select_lang" id="select_lang" onchange="document.langSelect.submit();"
                     class="input-medium">
