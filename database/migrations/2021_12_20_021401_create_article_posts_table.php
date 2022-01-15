@@ -21,6 +21,8 @@ class CreateArticlePostsTable extends Migration
             $table->foreignUuid('document_id');
             $table->foreignUuid('user_id');
             $table->bigInteger('views');
+            $table->boolean('publish')->default(false);
+            $table->timestamps();
         });
     }
 

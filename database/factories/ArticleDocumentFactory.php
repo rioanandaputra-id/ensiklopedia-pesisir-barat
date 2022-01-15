@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ArticleFactory extends Factory
+class ArticleDocumentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,9 +15,10 @@ class ArticleFactory extends Factory
     {
         return [
             'id' => $this->faker->uuid(),
-            'slug' => $this->faker->slug(),
-            'title' => $this->faker->sentence(mt_rand(2, 8)),
-            'content' => $this->faker->paragraph(mt_rand(20, 200))
+            'name' => $this->faker->sentence(2, true),
+            'path' => $this->faker->imageUrl(640, 480, 'animals', true),
+            'type' => 'image',
+            'uploded' => 0
         ];
     }
 }

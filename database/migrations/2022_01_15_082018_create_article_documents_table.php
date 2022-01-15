@@ -19,6 +19,7 @@ class CreateArticleDocumentsTable extends Migration
             $table->text('path');
             $table->enum('type', ['image', 'video', 'audio', 'document']);
             $table->boolean('uploded')->nullable()->default(true);
+            $table->timestamps();
         });
     }
 

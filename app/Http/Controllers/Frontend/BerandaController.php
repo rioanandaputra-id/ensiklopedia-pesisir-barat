@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ArticleCategory;
 use App\Models\ArticleIndex;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 
 class BerandaController extends Controller
 {
@@ -17,15 +18,15 @@ class BerandaController extends Controller
      */
     public function index(Request $request)
     {
-        if (!empty($request->cari)) {
-            # code...
-        }
-        if (!empty($request->kategori)) {
-            # code...
-        }
-        if (!empty($request->index)) {
-            # code...
-        }
+        // if (!empty($request->cari)) {
+        //     # code...
+        // }
+        // if (!empty($request->kategori)) {
+        //     # code...
+        // }
+        // if (!empty($request->index)) {
+        //     # code...
+        // }
 
 // $id1 = Uuid::uuid4();
 // $id2 = Uuid::uuid4();
