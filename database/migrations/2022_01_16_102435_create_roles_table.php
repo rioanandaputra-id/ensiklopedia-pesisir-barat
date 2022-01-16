@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticleIndexsTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateArticleIndexsTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_indexs', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->char('name', 5);
+            $table->string('name', 150);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateArticleIndexsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_indexs');
+        Schema::dropIfExists('roles');
     }
 }

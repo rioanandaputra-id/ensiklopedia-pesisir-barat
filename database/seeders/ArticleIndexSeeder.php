@@ -45,6 +45,8 @@ class ArticleIndexSeeder extends Seeder
             ['id' => Uuid::uuid4(), 'name' => '0-9'],
         ];
 
-        ArticleIndex::insert($indexs);
+        foreach($indexs as $index){
+            ArticleIndex::create($index);
+        }
     }
 }

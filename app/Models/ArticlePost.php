@@ -15,8 +15,16 @@ class ArticlePost extends Model
         'article_id',
         'category_id',
         'index_id',
-        'document_id',
         'user_id',
-        'views'
+        'name',
+        'slug',
+        'title',
+        'content',
+        'views',
+        'publish'
     ];
+
+    public function user(){
+        return $this->hasMany(User::class, 'user_id', 'id');
+    }
 }

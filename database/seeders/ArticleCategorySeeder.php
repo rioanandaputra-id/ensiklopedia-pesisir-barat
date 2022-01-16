@@ -31,6 +31,8 @@ class ArticleCategorySeeder extends Seeder
             ['id' => Uuid::uuid4(), 'name' => 'wisata']
         ];
 
-        ArticleCategory::insert($categorys);
+        foreach($categorys as $category){
+            ArticleCategory::create($category);
+        }
     }
 }

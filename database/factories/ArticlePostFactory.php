@@ -16,16 +16,16 @@ class ArticlePostFactory extends Factory
     {
         $category = DB::table('article_categorys')->select('id')->inRandomOrder()->first();
         $index = DB::table('article_indexs')->select('id')->inRandomOrder()->first();
-        $document = DB::table('article_documents')->select('id')->inRandomOrder()->first();
-        $article = DB::table('articles')->select('id')->inRandomOrder()->first();
+        $user = DB::table('users')->select('id')->inRandomOrder()->first();
 
         return [
             'id' => $this->faker->uuid(),
-            'article_id' => $article->id,
             'category_id' => $category->id,
             'index_id' => $index->id,
-            'document_id' => $document->id,
-            'user_id' => 1,
+            'user_id' => $user->id,
+            'slug' => $this->faker->slug(),
+            'title' => $this->faker->sentence(mt_rand(2, 8)),
+            'content' => $this->faker->paragraph(mt_rand(20, 200)),
             'views' => $this->faker->numberBetween(0, 2000),
         ];
     }

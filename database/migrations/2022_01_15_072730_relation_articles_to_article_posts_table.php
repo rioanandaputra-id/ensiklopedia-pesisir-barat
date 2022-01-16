@@ -13,13 +13,13 @@ class RelationArticlesToArticlePostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('article_posts', function (Blueprint $table) {
-            $table->foreign('article_id')
-                ->references('id')
-                ->on('articles')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-        });
+        // Schema::table('article_posts', function (Blueprint $table) {
+        //     $table->foreign('article_id')
+        //         ->references('id')
+        //         ->on('articles')
+        //         ->onDelete('cascade')
+        //         ->onUpdate('cascade');
+        // });
     }
 
     /**
@@ -29,8 +29,8 @@ class RelationArticlesToArticlePostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('article_posts', function (Blueprint $table) {
-            $table->dropForeign('article_posts_article_id_foreign');
-        });
+        // Schema::table('article_posts', function (Blueprint $table) {
+        //     $table->dropForeign('article_posts_article_id_foreign');
+        // });
     }
 }

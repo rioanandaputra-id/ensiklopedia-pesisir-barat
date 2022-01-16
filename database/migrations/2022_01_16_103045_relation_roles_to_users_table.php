@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RelationArticleDocumentsToArticlePostsTable extends Migration
+class RelationRolesToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class RelationArticleDocumentsToArticlePostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('article_posts', function (Blueprint $table) {
-            $table->foreign('document_id')
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('role_id')
                 ->references('id')
-                ->on('article_documents')
+                ->on('roles')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -29,8 +29,8 @@ class RelationArticleDocumentsToArticlePostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('article_posts', function (Blueprint $table) {
-            $table->dropForeign('article_posts_document_id_foreign');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_role_id_foreign');
         });
     }
 }

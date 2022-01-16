@@ -1,0 +1,6 @@
+php artisan migrate:fresh
+php artisan db:seed --class=ArticleIndexSeeder
+php artisan db:seed --class=ArticleCategorySeeder
+php artisan db:seed --class=ArticleSeeder
+php artisan db:seed --class=ArticleDocumentSeeder
+php artisan db:seed --class=ArticlePostSeeder

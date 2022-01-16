@@ -15,6 +15,7 @@ class CreateArticleDocumentsTable extends Migration
     {
         Schema::create('article_documents', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('article_post_id');
             $table->string('name', 255);
             $table->text('path');
             $table->enum('type', ['image', 'video', 'audio', 'document']);

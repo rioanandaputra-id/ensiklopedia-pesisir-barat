@@ -28,7 +28,7 @@
             <div class="simply">
                 <form name="advSearchForm" id="simplySearchForm" action="" method="get" class="form-search">
                     <div class="input-append">
-                        <input type="text" name="cari" id="keyword" placeholder="Kata kunci" lang="id_ID" x-webkit-speech="x-webkit-speech" class="input-xxlarge search-query">
+                        <input type="text" name="search" id="keyword" placeholder="Kata kunci" lang="id_ID" x-webkit-speech="x-webkit-speech" class="input-xxlarge search-query">
                         <button type="submit" class="btn">Pencarian</button>
                     </div>
                 </form>
@@ -42,7 +42,7 @@
 
             <div class="bg-white">
                 @foreach ($ArticleCategory as $category)
-                <a href="?kategori={{ $category->name }}" class="btn btn-sm btn-primary">{{ $category->name
+                <a href="?category={{ $category->name }}" class="btn btn-sm btn-primary">{{ $category->name
                     }}</a>
                 @endforeach
             </div>
