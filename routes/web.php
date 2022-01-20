@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\BerandaController;
+use App\Http\Controllers\Frontend\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +18,12 @@ use App\Http\Controllers\Frontend\BerandaController;
 |
 */
 
-Route::get('/',[BerandaController::class,'index'])->name('beranda');
+Route::prefix('/')->group(function () {
+    Route::get('/',[BerandaController::class,'index'])->name('beranda');
+    Route::get('/article/{slug}',[ArticleController::class,'index'])->name('article');
+    Route::get('/gallery/photo',[GalleryController::class,'photo'])->name('photo');
+    Route::get('/gallery/video',[GalleryController::class,'video'])->name('video');
+    Route::get('/about',[AboutController::class,'index'])->name('about');
+    Route::get('/auth/login',[AuthController::class,'login'])->name('login');
+    Route::get('/auth/register',[AuthController::class,'register'])->name('register');
+});

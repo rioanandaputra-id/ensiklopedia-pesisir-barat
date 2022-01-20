@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ArticleCategory;
 use App\Models\ArticleIndex;
-use Illuminate\Pagination\Paginator;
+// use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 
 class BerandaController extends Controller

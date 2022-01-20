@@ -2,17 +2,7 @@
 @section('title', 'Beranda')
 
 @section('css')
-<style>
-    .bg-white {
-        background-color: #fff;
-        padding: 20px;
-    }
 
-    .bg-grey {
-        background-color: #e5e5e5;
-        padding: 1px;
-    }
-</style>
 @stop
 
 @section('content')
@@ -28,7 +18,7 @@
             <div class="simply">
                 <form name="advSearchForm" id="simplySearchForm" action="" method="get" class="form-search">
                     <div class="input-append">
-                        <input type="text" name="search" id="keyword" placeholder="Kata kunci" lang="id_ID" x-webkit-speech="x-webkit-speech" class="input-xxlarge search-query">
+                        <input type="text" name="search" id="keyword" value="{{request('search')}}" placeholder="Kata kunci" lang="id_ID" x-webkit-speech="x-webkit-speech" class="input-xxlarge search-query">
                         <button type="submit" class="btn">Pencarian</button>
                     </div>
                 </form>
@@ -42,7 +32,7 @@
 
             <div class="bg-white">
                 @foreach ($categorys as $category)
-                <a href="?category={{ $category->name }}" class="btn btn-sm btn-primary">{{ $category->name
+                <a href="?category={{ $category->name }}" class="btn btn-sm  {{ (request('category') == $category->name) ? 'btn-danger' : 'btn-primary' }}">{{ $category->name
                     }}</a>
                 @endforeach
             </div>
@@ -51,7 +41,7 @@
                 <p style="text-align: center; font-size: medium; margin-top: 10px;">
                     Indeks Artikel:
                     @foreach ($indexs as $index)
-                    <a href="?index={{ $index->name }}">{{ $index->name }}</a>
+                    <a href="?index={{ $index->name }}" class="{{ (request('index') == $index->name) ? 'activered' : '' }}">{{ $index->name }}</a>
                     @endforeach
                 </p>
             </div>
@@ -60,10 +50,24 @@
             <div class="bg-white" style="margin-bottom: 100px; margin-top:20px; visibility:;">
                 <div class="edunac2">
                     <center>
-                        <b>Judul Artikel (Topik)</b> dengan huruf awal
-                        "<b>+.-</b>"<br>Ditemukan <b>{{$countdatas}}</b> artikel dengan judul huruf awal = "<b>+.-</b>", di bawah
-                        ini.<br>Silakan <b>klik judul artikel</b> di bawah ini untuk melihat artikel terkait, atau
-                        <b>klik indeks di atas</b> untuk melihat indeks lainnya.
+                        @if (request('index'))
+                            <b>Judul Artikel (Topik)</b> dengan huruf awal
+                            "<b>{{request('index')}}</b>"<br>Ditemukan <b>{{$countdatas}}</b> artikel dengan judul huruf awal = "<b>{{request('index')}}</b>", di bawah
+                            ini.<br>Silakan <b>klik judul artikel</b> di bawah ini untuk melihat artikel terkait, atau
+                            <b>klik indeks di atas</b> untuk melihat indeks lainnya.
+                        @endif
+                        @if (request('category'))
+                            <b>Artikel (Topik)</b> dengan kategori
+                            "<b>{{request('category')}}</b>"<br>Ditemukan <b>{{$countdatas}}</b> artikel dengan kategori = "<b>{{request('category')}}</b>", di bawah
+                            ini.<br>Silakan <b>klik judul artikel</b> di bawah ini untuk melihat artikel terkait, atau
+                            <b>klik kategori di atas</b> untuk melihat kategori lainnya.
+                        @endif
+                        @if (request('search'))
+                            <b>Artikel (Topik)</b> dengan kata kunci
+                            "<b>{{request('search')}}</b>"<br>Ditemukan <b>{{$countdatas}}</b> artikel dengan judul kata kunci = "<b>{{request('search')}}</b>", di bawah
+                            ini.<br>Silakan <b>klik judul artikel</b> di bawah ini untuk melihat artikel terkait, atau
+                            <b>klik pencarian di atas</b> untuk melihat hasil pencarian kata kunci lainnya.
+                        @endif
                     </center>
                 </div>
                 <hr>

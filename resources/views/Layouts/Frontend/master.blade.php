@@ -11,6 +11,22 @@
     <link href="{{ asset('assets/css/colorbox.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
     <link type="text/css" rel="stylesheet" media="all" href="{{ asset('assets/css/skin.css') }}">
+    <style>
+        .bg-white {
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .bg-grey {
+            background-color: #e5e5e5;
+            padding: 1px;
+        }
+
+        .activered {
+            background-color: red;
+            color: white;
+        }
+    </style>
     @yield('css')
 </head>
 
