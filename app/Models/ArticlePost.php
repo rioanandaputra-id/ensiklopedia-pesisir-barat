@@ -10,12 +10,12 @@ class ArticlePost extends Model
 {
     use HasFactory;
     protected $table = 'article_posts';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'article_post_id';
     public $incrementing = false;
     protected $fillable = [
-        'id',
-        'category_id',
-        'index_id',
+        'article_post_id',
+        'article_category_id',
+        'article_index_id',
         'user_id',
         'slug',
         'title',
@@ -27,14 +27,14 @@ class ArticlePost extends Model
 
     public function article_index()
     {
-    	return $this->belongsTo(ArticleIndex::class, 'index_id', 'id');
+    	return $this->belongsTo(ArticleIndex::class, 'article_index_id');
     }
     public function article_category()
     {
-    	return $this->belongsTo(ArticleCategory::class, 'category_id', 'id');
+    	return $this->belongsTo(ArticleCategory::class, 'article_category_id');
     }
     public function user()
     {
-    	return $this->belongsTo(User::class, 'user_id', 'id');
+    	return $this->belongsTo(User::class, 'user_id');
     }
 }

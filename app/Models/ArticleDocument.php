@@ -9,9 +9,9 @@ class ArticleDocument extends Model
 {
     use HasFactory;
     protected $table = 'article_documents';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'article_document_id';
     protected $fillable = [
-        'id',
+        'article_document_id',
         'name',
         'path',
         'type',

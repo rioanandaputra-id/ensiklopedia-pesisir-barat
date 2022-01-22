@@ -18,13 +18,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $administrator = DB::table('roles')->select('id')->where('name', 'Administrator')->first();
-        $contributor = DB::table('roles')->select('id')->where('name', 'Contributor')->first();
+        $administrator = DB::table('roles')->select('role_id')->where('name', 'Administrator')->first();
+        $contributor = DB::table('roles')->select('role_id')->where('name', 'Contributor')->first();
 
         $users = [
             [
-                'id' => Uuid::uuid4(),
-                'role_id' => $administrator->id,
+                'user_id' => Uuid::uuid4(),
+                'role_id' => $administrator->role_id,
                 'fullname' => 'Administrator',
                 'username' => 'admin',
                 'email' => 'admin@ensiklopedia.test',
@@ -32,8 +32,8 @@ class UserSeeder extends Seeder
                 'active' => '1'
             ],
             [
-                'id' => Uuid::uuid4(),
-                'role_id' => $contributor->id,
+                'user_id' => Uuid::uuid4(),
+                'role_id' => $contributor->role_id,
                 'fullname' => 'Contributor',
                 'username' => 'user',
                 'email' => 'user@ensiklopedia.test',

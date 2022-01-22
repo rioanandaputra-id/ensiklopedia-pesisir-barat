@@ -15,7 +15,7 @@ class RelationRolesToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('role_id')
-                ->references('id')
+                ->references('role_id')
                 ->on('roles')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

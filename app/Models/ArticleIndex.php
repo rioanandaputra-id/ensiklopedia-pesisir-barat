@@ -9,14 +9,14 @@ class ArticleIndex extends Model
 {
     use HasFactory;
     protected $table = 'article_indexs';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'article_index_id';
     public $incrementing = false;
     protected $fillable = [
-        'id',
+        'article_index_id',
         'name'
     ];
     public function article_post()
     {
-    	return $this->hasOne(ArticlePost::class,'index_id','id');
+    	return $this->hasOne(ArticlePost::class);
     }
 }

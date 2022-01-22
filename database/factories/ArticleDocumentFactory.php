@@ -14,10 +14,10 @@ class ArticleDocumentFactory extends Factory
      */
     public function definition()
     {
-        $post = DB::table('article_posts')->select('id')->inRandomOrder()->first();
+        $post = DB::table('article_posts')->select('article_post_id')->inRandomOrder()->first();
         return [
-            'id' => $this->faker->uuid(),
-            'article_post_id' => $post->id,
+            'article_document_id' => $this->faker->uuid(),
+            'article_post_id' => $post->article_post_id,
             'name' => $this->faker->sentence(2, true),
             'path' => $this->faker->imageUrl(640, 480, 'animals', true),
             'type' => 'image',

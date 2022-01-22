@@ -14,8 +14,8 @@ class RelationArticleIndexsToArticlePostsTable extends Migration
     public function up()
     {
         Schema::table('article_posts', function (Blueprint $table) {
-            $table->foreign('index_id')
-                ->references('id')
+            $table->foreign('article_index_id')
+                ->references('article_index_id')
                 ->on('article_indexs')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -30,7 +30,7 @@ class RelationArticleIndexsToArticlePostsTable extends Migration
     public function down()
     {
         Schema::table('article_posts', function (Blueprint $table) {
-            $table->dropForeign('article_posts_index_id_foreign');
+            $table->dropForeign('article_posts_article_index_id_foreign');
         });
     }
 }

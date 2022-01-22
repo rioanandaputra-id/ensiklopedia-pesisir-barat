@@ -14,10 +14,9 @@ class CreateArticlePostsTable extends Migration
     public function up()
     {
         Schema::create('article_posts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            // $table->foreignUuid('article_id');
-            $table->foreignUuid('category_id');
-            $table->foreignUuid('index_id');
+            $table->uuid('article_post_id')->primary();
+            $table->foreignUuid('article_category_id');
+            $table->foreignUuid('article_index_id');
             $table->foreignUuid('user_id');
             $table->char('slug', 255)->unique();
             $table->string('title', 255);

@@ -14,15 +14,15 @@ class ArticlePostFactory extends Factory
      */
     public function definition()
     {
-        $category = DB::table('article_categorys')->select('id')->inRandomOrder()->first();
-        $index = DB::table('article_indexs')->select('id')->inRandomOrder()->first();
-        $user = DB::table('users')->select('id')->inRandomOrder()->first();
+        $category = DB::table('article_categorys')->select('article_category_id')->inRandomOrder()->first();
+        $index = DB::table('article_indexs')->select('article_index_id')->inRandomOrder()->first();
+        $user = DB::table('users')->select('user_id')->inRandomOrder()->first();
 
         return [
-            'id' => $this->faker->uuid(),
-            'category_id' => $category->id,
-            'index_id' => $index->id,
-            'user_id' => $user->id,
+            'article_post_id' => $this->faker->uuid(),
+            'article_category_id' => $category->article_category_id,
+            'article_index_id' => $index->article_index_id,
+            'user_id' => $user->user_id,
             'slug' => $this->faker->slug(),
             'title' => $this->faker->sentence(mt_rand(2, 8)),
             'content' => $this->faker->paragraph(mt_rand(20, 200)),

@@ -14,7 +14,7 @@ class CreateArticleDocumentsTable extends Migration
     public function up()
     {
         Schema::create('article_documents', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('article_document_id')->primary();
             $table->foreignUuid('article_post_id');
             $table->string('name', 255);
             $table->text('path');

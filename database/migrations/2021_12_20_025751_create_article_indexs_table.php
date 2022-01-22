@@ -14,7 +14,7 @@ class CreateArticleIndexsTable extends Migration
     public function up()
     {
         Schema::create('article_indexs', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('article_index_id')->primary();
             $table->char('name', 5);
             $table->timestamps();
         });

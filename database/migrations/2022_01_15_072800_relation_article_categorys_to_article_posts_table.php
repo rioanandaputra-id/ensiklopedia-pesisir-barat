@@ -14,8 +14,8 @@ class RelationArticleCategorysToArticlePostsTable extends Migration
     public function up()
     {
         Schema::table('article_posts', function (Blueprint $table) {
-            $table->foreign('category_id')
-                ->references('id')
+            $table->foreign('article_category_id')
+                ->references('article_category_id')
                 ->on('article_categorys')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -30,7 +30,7 @@ class RelationArticleCategorysToArticlePostsTable extends Migration
     public function down()
     {
         Schema::table('article_posts', function (Blueprint $table) {
-            $table->dropForeign('article_posts_category_id_foreign');
+            $table->dropForeign('article_posts_article_category_id_foreign');
         });
     }
 }

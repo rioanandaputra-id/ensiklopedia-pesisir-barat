@@ -14,7 +14,7 @@ class CreateArticleCategorysTable extends Migration
     public function up()
     {
         Schema::create('article_categorys', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('article_category_id')->primary();
             $table->string('name');
             $table->timestamps();
         });

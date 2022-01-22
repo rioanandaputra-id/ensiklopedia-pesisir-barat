@@ -71,7 +71,8 @@
                     </center>
                 </div>
                 <hr>
-
+                    {{ $datas->links('vendor.pagination.custom') }}
+                <hr>
                 <table style="width: 100%;">
                     <tbody>
                         <tr>
@@ -83,18 +84,26 @@
                                 </ol>
                             </td>
                         </tr>
+                        {{-- <tr>
+                                @php
+                                    $i=1;
+                                @endphp
+                            @foreach ($datas as $data)
+                            <td>
+                                {{$i;}}. <a href="article/{{ $data->slug }}">{{ $data->title }}</a>
+                            </td>
+                            @if ($i % 2 == 0)
+                            </tr><tr>
+                            @endif
+
+                            @php
+                                $i++;
+                            @endphp
+                            @endforeach
+                        </tr> --}}
                     </tbody>
                 </table>
-
                 <hr>
-
-                <table>
-                    <tbody>
-                        <tr valign="top">
-                            <td class="edunac8"> Halaman :&nbsp;<span class="edunac9"><b> 1</b></span>&nbsp; <a href="https://wiki.edunitas.com/indeks_b/114-10/+.-_50_51_2__eduNitas.html" class="edung3a">2</a>&nbsp; <a href="https://wiki.edunitas.com/indeks_b/114-10/+.-_50_101_3__eduNitas.html" class="edung3a" rel="nofollow">3</a>&nbsp; <a href="https://wiki.edunitas.com/indeks_b/114-10/+.-_50_151_4__eduNitas.html" class="edung3a" rel="nofollow">4</a>&nbsp; <a href="https://wiki.edunitas.com/indeks_b/114-10/+.-_50_201_5__eduNitas.html" class="edung3a">5</a>&nbsp; <a href="https://wiki.edunitas.com/indeks_b/114-10/+.-_50_251_6__eduNitas.html" class="edung3a" rel="nofollow">6</a>&nbsp; <a href="https://wiki.edunitas.com/indeks_b/114-10/+.-_50_301_7__eduNitas.html" class="edung3a" rel="nofollow">7</a>&nbsp; </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
             @endif
 

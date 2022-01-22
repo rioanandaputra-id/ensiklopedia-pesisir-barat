@@ -10,10 +10,10 @@ class User extends Model
 {
     use HasFactory;
     protected $table = 'users';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'user_id';
     public $incrementing = false;
     protected $fillable = [
-        'id',
+        'user_id',
         'role_id',
         'fullname',
         'username',
@@ -23,6 +23,6 @@ class User extends Model
     ];
     public function article_post()
     {
-    	return $this->hasMany(ArticlePost::class,'user_id','id');
+    	return $this->hasMany(ArticlePost::class);
     }
 }

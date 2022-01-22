@@ -9,14 +9,14 @@ class ArticleCategory extends Model
 {
   use HasFactory;
     protected $table = 'article_categorys';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'article_category_id';
     public $incrementing = false;
     protected $fillable = [
-    	'id',
+    	'article_category_id',
 		'name'
     ];
     public function article_post()
     {
-    	return $this->hasMany(ArticlePost::class,'category_id','id');
+    	return $this->hasMany(ArticlePost::class);
     }
 }
