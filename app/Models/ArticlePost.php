@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class ArticlePost extends Model
 {
     use HasFactory;
+    use Sluggable;
     protected $table = 'article_posts';
     protected $primaryKey = 'article_post_id';
     public $incrementing = false;
@@ -24,6 +26,15 @@ class ArticlePost extends Model
         'publish'
     ];
 
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     public function article_index()
     {

@@ -16,7 +16,7 @@ class ArticleDocumentFactory extends Factory
     {
         $post = DB::table('article_posts')->select('article_post_id')->inRandomOrder()->first();
         return [
-            'article_document_id' => $this->faker->uuid(),
+            'article_document_id' => $this->faker->uuid3(),
             'article_post_id' => $post->article_post_id,
             'name' => $this->faker->sentence(2, true),
             'path' => $this->faker->imageUrl(640, 480, 'animals', true),

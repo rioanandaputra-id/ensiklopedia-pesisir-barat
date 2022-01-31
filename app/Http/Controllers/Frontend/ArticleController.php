@@ -18,6 +18,6 @@ class ArticleController extends Controller
         ->where('slug', $slug)
         ->first();
 
-        return view('pages.frontend.article/index', compact('articles'));
+        return view('Pages.Frontend.Article.index', compact('articles'));
     }
 }

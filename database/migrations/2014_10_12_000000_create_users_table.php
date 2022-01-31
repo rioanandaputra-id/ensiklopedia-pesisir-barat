@@ -16,6 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('user_id')->primary();
             $table->foreignUuid('role_id');
+            $table->text('image_path');
+            $table->boolean('image_uploded')->default(true);
             $table->string('fullname', 200);
             $table->char('username', 150);
             $table->string('email', 150)->unique();

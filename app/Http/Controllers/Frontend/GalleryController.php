@@ -10,12 +10,12 @@ class GalleryController extends Controller
 {
     public function photo()
     {
-        $photos = ArticleDocument::WHERE('type', 'image')->paginate(15);
-        return view('pages.frontend.gallery/photo', compact('photos'));
+        $photos = ArticleDocument::where('type', 'image')->paginate(15);
+        return view('Pages.Frontend.Gallery.photo', compact('photos'));
     }
     public function video()
     {
-        $videos = ArticleDocument::WHERE('type', 'video')->GET();
-        return view('pages.frontend.gallery/video', compact('videos'));
+        $videos = ArticleDocument::where('type', 'video')->paginate(15);
+        return view('Pages.Frontend.Gallery.video', compact('videos'));
     }
 }

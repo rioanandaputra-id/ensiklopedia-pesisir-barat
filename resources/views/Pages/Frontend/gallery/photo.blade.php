@@ -16,11 +16,7 @@
                 <img src="{{ $photo->path }}" alt="" width="220px" style="padding: 4px;">
             @endforeach
 
-
             {{ $photos->links('vendor.pagination.custom') }}
-
-
-
         </div>
     </div>
 </div>

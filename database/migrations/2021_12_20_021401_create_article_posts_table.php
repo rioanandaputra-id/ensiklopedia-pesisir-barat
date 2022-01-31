@@ -20,7 +20,7 @@ class CreateArticlePostsTable extends Migration
             $table->foreignUuid('user_id');
             $table->char('slug', 255)->unique();
             $table->string('title', 255);
-            $table->text('content');
+            $table->text('content')->nullable(true);
             $table->bigInteger('views');
             $table->boolean('publish')->default(false);
             $table->timestamps();

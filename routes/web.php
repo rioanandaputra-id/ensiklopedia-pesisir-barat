@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Backend\DasboardController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\ArticleController;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,8 @@ Route::prefix('/')->group(function () {
     Route::get('/about',[AboutController::class,'index'])->name('about');
     Route::get('/auth/login',[AuthController::class,'login'])->name('login');
     Route::get('/auth/register',[AuthController::class,'register'])->name('register');
+});
+
+Route::prefix('/backend')->group(function () {
+    Route::get('/dasboard',[DasboardController::class,'index'])->name('dasboard');
 });

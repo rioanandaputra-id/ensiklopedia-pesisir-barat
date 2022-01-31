@@ -25,6 +25,8 @@ class UserSeeder extends Seeder
             [
                 'user_id' => Uuid::uuid4(),
                 'role_id' => $administrator->role_id,
+                'image_path' => 'https://via.placeholder.com/640x480.png/0022aa?text=Administrator',
+                'image_uploded' => false,
                 'fullname' => 'Administrator',
                 'username' => 'admin',
                 'email' => 'admin@ensiklopedia.test',
@@ -34,6 +36,8 @@ class UserSeeder extends Seeder
             [
                 'user_id' => Uuid::uuid4(),
                 'role_id' => $contributor->role_id,
+                'image_path' => 'https://via.placeholder.com/640x480.png/0022aa?text=Contributor',
+                'image_uploded' => false,
                 'fullname' => 'Contributor',
                 'username' => 'user',
                 'email' => 'user@ensiklopedia.test',

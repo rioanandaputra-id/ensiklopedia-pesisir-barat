@@ -48,7 +48,7 @@ class BerandaController extends Controller
         $countdatas = count($datas);
 
         // data dari hasil data yang ditemukan dikirim ke halaman beranda dan ditampilkan
-        return view('pages.frontend.beranda/index', compact('categorys', 'indexs', 'datas', 'countdatas'));
+        return view('Pages.Frontend.Beranda.index', compact('categorys', 'indexs', 'datas', 'countdatas'));
 
 
         // header('Content-Type: application/json; charset=utf-8');
