@@ -4,17 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 class ArticleCategory extends Model
 {
-  use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'article_categorys';
-    protected $primaryKey = 'article_category_id';
     public $incrementing = false;
     protected $fillable = [
-    	'article_category_id',
-		'name'
+        'id',
+		'categoryy'
     ];
+    // protected $hidden = [
+    //     'created_at',
+    //     'updated_at'
+    // ];
     public function article_post()
     {
     	return $this->hasMany(ArticlePost::class);

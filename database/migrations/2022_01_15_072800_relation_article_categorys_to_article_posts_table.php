@@ -15,7 +15,7 @@ class RelationArticleCategorysToArticlePostsTable extends Migration
     {
         Schema::table('article_posts', function (Blueprint $table) {
             $table->foreign('article_category_id')
-                ->references('article_category_id')
+                ->references('id')
                 ->on('article_categorys')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

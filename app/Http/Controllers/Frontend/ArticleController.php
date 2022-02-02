@@ -11,9 +11,9 @@ class ArticleController extends Controller
     public function index($slug)
     {
         $articles = ArticlePost::with([
-            'article_index:article_index_id,name',
-            'article_category:article_category_id,name',
-            'user:user_id,fullname'
+            'article_index:id,indexx',
+            'article_category:id,categoryy',
+            'user:id,fullname'
         ])
         ->where('slug', $slug)
         ->first();

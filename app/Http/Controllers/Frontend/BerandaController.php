@@ -16,8 +16,8 @@ class BerandaController extends Controller
     {
 
         // ambil data refrensi category dan index yang tersedia pada database
-        $categorys = ArticleCategory::orderBy('name', 'asc')->get();
-        $indexs = ArticleIndex::orderBy('name', 'asc')->get();
+        $categorys = ArticleCategory::orderBy('categoryy', 'asc')->get();
+        $indexs = ArticleIndex::orderBy('indexx', 'asc')->get();
 
         $datas = [];
         $index = $request->index;
@@ -28,15 +28,15 @@ class BerandaController extends Controller
         if (!empty($search) || !empty($category) || !empty($index)) {
 
             $datas = ArticlePost::select('slug', 'title')->with([
-                'article_index:article_index_id,name',
-                'article_category:article_category_id,name',
-                'user:user_id,fullname'
+                'article_index:id,indexx',
+                'article_category:id,categoryy',
+                'user:id,fullname'
             ])
                 ->when($index, function ($query, $index) {
-                    return $query->whereRelation('article_index', 'name', $index);
+                    return $query->whereRelation('article_index', 'indexx', $index);
                 })
                 ->when($category, function ($query, $category) {
-                    return $query->whereRelation('article_category', 'name', $category);
+                    return $query->whereRelation('article_category', 'categoryy', $category);
                 })
                 ->when($search, function ($query, $search) {
                     return $query->orWhere('title', 'LIKE', '%' . $search . '%')->orWhere('content', 'LIKE', '%' . $search . '%');

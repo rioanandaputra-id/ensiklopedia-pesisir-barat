@@ -16,12 +16,12 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $roles = [
-            ['role_id' => Uuid::uuid4(), 'name' => 'Administrator'],
-            ['role_id' => Uuid::uuid4(), 'name' => 'Contributor']
+            ['id' => Uuid::uuid4(), 'name' => 'Administrator'],
+            ['id' => Uuid::uuid4(), 'name' => 'Contributor']
         ];
 
         foreach($roles as $role){
-            Role::create($role);
+            Role::insert($role);
         }
     }
 }

@@ -15,7 +15,7 @@ class RelationArticleIndexsToArticlePostsTable extends Migration
     {
         Schema::table('article_posts', function (Blueprint $table) {
             $table->foreign('article_index_id')
-                ->references('article_index_id')
+                ->references('id')
                 ->on('article_indexs')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

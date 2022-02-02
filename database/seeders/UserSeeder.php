@@ -18,13 +18,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $administrator = DB::table('roles')->select('role_id')->where('name', 'Administrator')->first();
-        $contributor = DB::table('roles')->select('role_id')->where('name', 'Contributor')->first();
+        $administrator = DB::table('roles')->select('id')->where('name', 'Administrator')->first();
+        $contributor = DB::table('roles')->select('id')->where('name', 'Contributor')->first();
 
         $users = [
             [
-                'user_id' => Uuid::uuid4(),
-                'role_id' => $administrator->role_id,
+                'id' => Uuid::uuid4(),
+                'role_id' => $administrator->id,
                 'image_path' => 'https://via.placeholder.com/640x480.png/0022aa?text=Administrator',
                 'image_uploded' => false,
                 'fullname' => 'Administrator',
@@ -34,8 +34,8 @@ class UserSeeder extends Seeder
                 'active' => '1'
             ],
             [
-                'user_id' => Uuid::uuid4(),
-                'role_id' => $contributor->role_id,
+                'id' => Uuid::uuid4(),
+                'role_id' => $contributor->id,
                 'image_path' => 'https://via.placeholder.com/640x480.png/0022aa?text=Contributor',
                 'image_uploded' => false,
                 'fullname' => 'Contributor',
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
         ];
 
         foreach($users as $user){
-            User::create($user);
+            User::insert($user);
         }
     }
 }

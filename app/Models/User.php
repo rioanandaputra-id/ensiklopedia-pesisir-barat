@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ArticlePost;
-
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 class User extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'users';
-    protected $primaryKey = 'user_id';
     public $incrementing = false;
     protected $fillable = [
-        'user_id',
+        'id',
         'role_id',
         'fullname',
         'username',
@@ -21,6 +21,10 @@ class User extends Model
         'password',
         'active'
     ];
+    // protected $hidden = [
+    //     'created_at',
+    //     'updated_at'
+    // ];
     public function article_post()
     {
     	return $this->hasMany(ArticlePost::class);

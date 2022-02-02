@@ -4,19 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 class ArticleIndex extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'article_indexs';
-    protected $primaryKey = 'article_index_id';
     public $incrementing = false;
     protected $fillable = [
-        'article_index_id',
-        'name'
+        'id',
+        'indexx'
     ];
+    // protected $hidden = [
+    //     'created_at',
+    //     'updated_at'
+    // ];
     public function article_post()
     {
-    	return $this->hasOne(ArticlePost::class);
+    	return $this->hasMany(ArticlePost::class);
     }
 }

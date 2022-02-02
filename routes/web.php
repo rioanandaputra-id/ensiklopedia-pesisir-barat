@@ -1,12 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Backend\DasboardController;
-use App\Http\Controllers\Frontend\AboutController;
-use App\Http\Controllers\Frontend\ArticleController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\BerandaController;
-use App\Http\Controllers\Frontend\GalleryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +14,52 @@ use App\Http\Controllers\Frontend\GalleryController;
 |
 */
 
-Route::prefix('/')->group(function () {
-    Route::get('/',[BerandaController::class,'index'])->name('beranda');
-    Route::get('/article/{slug}',[ArticleController::class,'index'])->name('article');
-    Route::get('/gallery/photo',[GalleryController::class,'photo'])->name('photo');
-    Route::get('/gallery/video',[GalleryController::class,'video'])->name('video');
-    Route::get('/about',[AboutController::class,'index'])->name('about');
-    Route::get('/auth/login',[AuthController::class,'login'])->name('login');
-    Route::get('/auth/register',[AuthController::class,'register'])->name('register');
+Route::group([
+    'namespace' => 'App\Http\Controllers\Frontend',
+    'prefix' => '/'
+], function () {
+    Route::get('/', 'BerandaController@index');
+    Route::get('article/{slug}', 'ArticleController@index');
+    Route::get('gallery/photo', 'GalleryController@photo');
+    Route::get('gallery/video', 'GalleryController@video');
+    Route::get('about', 'AboutController@index');
 });
 
-Route::prefix('/backend')->group(function () {
-    Route::get('/dasboard',[DasboardController::class,'index'])->name('dasboard');
+Route::group([
+    'namespace' => 'App\Http\Controllers\Auth',
+    'prefix' => 'auth'
+], function () {
+    Route::get('login', 'Auth\AuthController@login');
+    Route::get('logout', 'Auth\AuthController@logout');
+    Route::get('forget', 'Auth\AuthController@forget');
+    Route::get('register', 'Auth\AuthController@register');
+});
+
+Route::group([
+    'namespace' => 'App\Http\Controllers\Backend',
+    'prefix' => 'backend'
+], function () {
+    Route::get('/', 'DasboardController@index');
+    Route::get('category_article', 'CategoryArticleController@index');
+    Route::get('index_article', 'IndexArticleController@index');
+    Route::get('page_web', 'PageWebController@index');
+    Route::get('comment_article', 'CommentArticleController@index');
+    Route::get('user', 'UserController@index');
+    Route::get('photo', 'GalleryController@photo');
+    Route::get('video', 'GalleryController@video');
+    Route::get('profile', 'UserController@profile');
+
+    Route::prefix('article')->group(function () {
+        Route::get('/', 'ArticleController@index')->name('backend.article');
+        // Route::get('/{slug}', 'ArticleController@index');
+        Route::get('/add', 'ArticleController@add')->name('backend.article.add');
+        Route::post('/add', 'ArticleController@create')->name('backend.article.create');
+        Route::get('/edit/{slug}', 'ArticleController@edit')->name('backend.article.edit');
+
+        Route::post('/update', 'ArticleController@update')->name('backend.article.update');
+        Route::delete('/delete/{slug}', 'ArticleController@delete')->name('backend.article.delete');
+
+        Route::get('/datatable', 'ArticleController@datatable')->name('backend.article.datatable');
+
+    });
 });

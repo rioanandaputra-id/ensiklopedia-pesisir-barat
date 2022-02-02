@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('user_id')->primary();
+            $table->uuid('id')->primary();
             $table->foreignUuid('role_id');
             $table->text('image_path');
             $table->boolean('image_uploded')->default(true);
@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 150)->unique();
             $table->string('password');
             $table->boolean('active')->default(false);
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

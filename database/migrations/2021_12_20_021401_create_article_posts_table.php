@@ -14,7 +14,7 @@ class CreateArticlePostsTable extends Migration
     public function up()
     {
         Schema::create('article_posts', function (Blueprint $table) {
-            $table->uuid('article_post_id')->primary();
+            $table->uuid('id')->primary();
             $table->foreignUuid('article_category_id');
             $table->foreignUuid('article_index_id');
             $table->foreignUuid('user_id');
@@ -22,7 +22,7 @@ class CreateArticlePostsTable extends Migration
             $table->string('title', 255);
             $table->text('content')->nullable(true);
             $table->bigInteger('views');
-            $table->boolean('publish')->default(false);
+            $table->enum('status', ['Tunggu', 'Terbit', 'Arsip']);
             $table->timestamps();
         });
     }

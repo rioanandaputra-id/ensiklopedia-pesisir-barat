@@ -32,7 +32,7 @@
 
             <div class="bg-white">
                 @foreach ($categorys as $category)
-                <a href="?category={{ $category->name }}" class="btn btn-sm  {{ (request('category') == $category->name) ? 'btn-danger' : 'btn-primary' }}">{{ $category->name
+                <a href="?category={{ $category->categoryy }}" class="btn btn-sm  {{ (request('category') == $category->categoryy) ? 'btn-danger' : 'btn-primary' }}">{{ $category->categoryy
                     }}</a>
                 @endforeach
             </div>
@@ -41,7 +41,7 @@
                 <p style="text-align: center; font-size: medium; margin-top: 10px;">
                     Indeks Artikel:
                     @foreach ($indexs as $index)
-                    <a href="?index={{ $index->name }}" class="{{ (request('index') == $index->name) ? 'activered' : '' }}">{{ $index->name }}</a>
+                    <a href="?index={{ $index->indexx }}" class="{{ (request('index') == $index->indexx) ? 'activered' : '' }}">{{ $index->indexx }}</a>
                     @endforeach
                 </p>
             </div>

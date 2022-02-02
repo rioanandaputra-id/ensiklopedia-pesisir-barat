@@ -16,23 +16,23 @@ class ArticleCategorySeeder extends Seeder
     public function run()
     {
         $categorys = [
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'agama'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'bahasa'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'budaya'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'ekonomi'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'kuliner'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'olahraga'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'pemeritahan'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'pendidikan'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'perikanan'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'pertanian'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'peternakan'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'sejarah'],
-            ['article_category_id' => Uuid::uuid4(), 'name' => 'wisata']
+            ['id' => Uuid::uuid4(), 'categoryy' => 'agama'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'bahasa'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'budaya'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'ekonomi'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'kuliner'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'olahraga'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'pemeritahan'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'pendidikan'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'perikanan'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'pertanian'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'peternakan'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'sejarah'],
+            ['id' => Uuid::uuid4(), 'categoryy' => 'wisata']
         ];
 
         foreach($categorys as $category){
-            ArticleCategory::create($category);
+            ArticleCategory::insert($category);
         }
     }
 }

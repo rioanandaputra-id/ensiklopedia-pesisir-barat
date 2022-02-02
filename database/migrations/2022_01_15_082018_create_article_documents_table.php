@@ -14,13 +14,13 @@ class CreateArticleDocumentsTable extends Migration
     public function up()
     {
         Schema::create('article_documents', function (Blueprint $table) {
-            $table->uuid('article_document_id')->primary();
+            $table->uuid('id')->primary();
             $table->foreignUuid('article_post_id');
             $table->string('name', 255);
             $table->text('path');
             $table->enum('type', ['image', 'video', 'audio', 'document']);
             $table->boolean('uploded')->nullable()->default(true);
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 

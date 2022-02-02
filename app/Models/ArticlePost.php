@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Sluggable;
-
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 class ArticlePost extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
     use Sluggable;
     protected $table = 'article_posts';
-    protected $primaryKey = 'article_post_id';
     public $incrementing = false;
     protected $fillable = [
-        'article_post_id',
+        'id',
         'article_category_id',
         'article_index_id',
         'user_id',
@@ -38,14 +38,14 @@ class ArticlePost extends Model
 
     public function article_index()
     {
-    	return $this->belongsTo(ArticleIndex::class, 'article_index_id');
+    	return $this->belongsTo(ArticleIndex::class, 'article_index_id', 'id');
     }
     public function article_category()
     {
-    	return $this->belongsTo(ArticleCategory::class, 'article_category_id');
+    	return $this->belongsTo(ArticleCategory::class, 'article_category_id', 'id');
     }
     public function user()
     {
-    	return $this->belongsTo(User::class, 'user_id');
+    	return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
