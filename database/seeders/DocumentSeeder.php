@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\ArticleDocument;
+use App\Models\Document;
 use Illuminate\Database\Seeder;
 
-class ArticleDocumentSeeder extends Seeder
+class DocumentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class ArticleDocumentSeeder extends Seeder
      */
     public function run()
     {
-        ArticleDocument::factory(200)->create();
+        Document::factory(50)->create();
     }
 }

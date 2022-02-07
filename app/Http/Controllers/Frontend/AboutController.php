@@ -7,7 +7,14 @@ use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
-    public function index()
+    protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function page_index()
     {
         return view('Pages.Frontend.About.index');
     }

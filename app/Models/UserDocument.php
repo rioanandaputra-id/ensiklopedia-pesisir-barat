@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class ArticleDocument extends Model
+class UserDocument extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'article_documents';
+    protected $table = 'user_documents';
     protected $primaryKey = 'id';
+    public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = [
         'id',
-        'name',
-        'path',
-        'type',
-        'uploded'
+        'user_id',
+        'document_id'
     ];
 }

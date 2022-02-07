@@ -1,5 +1,5 @@
 @extends('Layouts.Backend.master')
-@section('title', 'Dasboard')
+@section('title', 'Halaman Master Data - Pengguna')
 
 @section('css')
 @stop

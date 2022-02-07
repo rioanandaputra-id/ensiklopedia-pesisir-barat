@@ -1,5 +1,5 @@
 @extends('Layouts.Backend.master')
-@section('title', 'Ubah Artikel')
+@section('title', 'Halaman Artikel - Ubah')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
@@ -11,9 +11,9 @@
 
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row">
                 <div class="col-sm-6">
-                    <h1>@yield('title')</h1>
+                    <h5>@yield('title')</h5>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -33,8 +33,9 @@
                 <div class="card card-outline card-info">
                     <div class="card-body">
 
-                            <form action="{{ route('backend.article.update') }}" method="POST">
+                            <form action="{{ url('backend/article/update') }}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <input type="hidden" value="{{$posts->slug}}" name="slug" id="slug">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Judul Artikel: <i
@@ -50,7 +51,7 @@
                             <div class="mb-3">
                                 <label for="category" class="form-label">Kategori Artikel:
                                     <i class="text-danger">*</i></label>
-                                <select class="form-control" id="category" name="category" required>
+                                <select class="form-control" id="category" name="category_id" required>
                                     <option></option>
                                     @foreach ($categorys as $category)
                                     @php
@@ -59,17 +60,17 @@
                                         <option {{$selected}} value="{{ $category->id }}">{{ $category->categoryy }}</option>
                                     @endforeach
                                 </select>
-                                @error('category')
+                                @error('category_id')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="content" class="form-label">Isi Artikel: <i
+                                <label for="body" class="form-label">Isi Artikel: <i
                                         class="text-danger">*</i></label>
-                                <textarea id="content" name="content" required>{{ $posts->content }}</textarea>
-                                @error('content')
+                                <textarea id="body" name="body" required>{{ $posts->body }}</textarea>
+                                @error('body')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -97,7 +98,7 @@
     <script src="{{ asset('assets/Backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         $(function() {
-            $('#content').summernote({
+            $('#body').summernote({
                 height: 200,
             })
         });

@@ -1,5 +1,5 @@
 @extends('Layouts.Backend.master')
-@section('title', 'Halaman Artikel - '. Str::ucfirst(request()->status))
+@section('title', 'Halaman Galleri - Foto ' . Str::ucfirst(request()->status))
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/Backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -18,8 +18,8 @@
                     <h5>@yield('title')</h5>
                 </div>
                 <div class="col-sm-4">
-                    <a href="{{ url('backend/article/add') }}" class="btn btn-success btn-sm mb-4"> <i
-                            class="fa fa-plus-circle"></i> Tambah</a>
+                    <button id="add" class="btn btn-success btn-sm mb-4"> <i
+                            class="fa fa-plus-circle"></i> Tambah</button>
                     <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
                         Hapus</button>
                     <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
@@ -41,29 +41,28 @@
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover dataTable dtr-inline" id="tbarticle" style="width: 100%">
+                    <table class="table table-bordered table-hover dataTable dtr-inline" id="tbgalleryphoto"
+                        style="width: 100%">
                         <thead class="bg-green">
                             <tr>
                                 <th><input type="checkbox" class="checkbox_all"></th>
-                                <th style="width: 350px">JUDUL</th>
-                                <th>INDEK</th>
-                                <th>KATEGORI</th>
-                                <th>PENULIS</th>
+                                <th>NAMA ALBUM FOTO</th>
+                                <th>DIBUAT OLEH</th>
                                 <th>STATUS</th>
                                 <th>DIPERBAHARUI</th>
+                                <th>JUMLAH FOTO</th>
                                 <th style="width: 80px">AKSI</th>
                             </tr>
                         </thead>
                         <tfoot class="bg-green">
                             <tr>
                                 <th><input type="checkbox" class="checkbox_all"></th>
-                                <th>JUDUL</th>
-                                <th>INDEK</th>
-                                <th>KATEGORI</th>
-                                <th>PENULIS</th>
+                                <th>NAMA ALBUM FOTO</th>
+                                <th>DIBUAT OLEH</th>
                                 <th>STATUS</th>
                                 <th>DIPERBAHARUI</th>
-                                <th>AKSI</th>
+                                <th>JUMLAH FOTO</th>
+                                <th style="width: 80px">AKSI</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -71,6 +70,7 @@
             </div>
         </div>
     </section>
+
 @endsection
 
 @section('js')
@@ -80,12 +80,12 @@
     <script src="{{ asset('assets/Backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#tbarticle').DataTable({
+            $('#tbgalleryphoto').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
                 ajax: {
-                    url: "{{ url('backend/article/read') }}",
+                    url: "{{ url('backend/gallery/photo/read') }}",
                     type: 'GET',
                     data: {
                         '_token': "{{ csrf_token() }}",
@@ -100,33 +100,30 @@
                         className: 'text-center',
                     },
                     {
-                        data: 'title',
-                        name: 'title',
+                        data: 'name',
+                        name: 'name',
                         className: 'text-left',
                     },
                     {
-                        data: 'article_index',
-                        name: 'article_index.indexx',
-                        className: 'text-center',
-                    },
-                    {
-                        data: 'article_category',
-                        name: 'article_category.categoryy',
-                        className: 'text-center',
-                    },
-                    {
-                        data: 'user_account',
+                        data: 'user_account.fullname',
                         name: 'user_account.fullname',
-                        className: 'text-center',
+                        className: 'text-left',
                     },
                     {
                         data: 'status',
                         name: 'status',
-                        className: 'text-center',
+                        className: 'text-left',
                     },
                     {
                         data: 'updated_at',
                         name: 'updated_at',
+                        className: 'text-left',
+                    },
+                    {
+                        data: 'count',
+                        name: 'count',
+                        orderable: false,
+                        searchable: false,
                         className: 'text-center',
                     },
                     {
@@ -138,7 +135,7 @@
                     },
                 ],
                 order: [
-                    [6, "desc"]
+                    [1, "desc"]
                 ],
             });
 
@@ -149,6 +146,71 @@
                 } else {
                     $('.checkbox_item').prop('checked', false);
                     $('.checkbox_all').prop('checked', false);
+                }
+            });
+
+            $('#update_status').click(function() {
+                var id = [];
+                $('.checkbox_item:checked').each(function() {
+                    id.push($(this).val());
+                });
+                if (id.length > 0) {
+                    Swal.fire({
+                        title: 'Konfirmasi persetujuan status gallery album foto',
+                        input: 'select',
+                        inputOptions: {
+                            'Terbit': 'Terbit',
+                            'Tunggu': 'Tunggu',
+                            'Arsip': 'Arsip'
+                        },
+                        inputPlaceholder: '--pilih--',
+                        showCancelButton: true,
+                        inputValidator: function(value) {
+                            return new Promise(function(resolve, reject) {
+                                if (value == '') {
+                                    resolve(
+                                        'Anda harus memilih persetujuan status gallery album foto');
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        }
+                    }).then(function(result) {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "{{ url('backend/gallery/update_status') }}",
+                                type: "PUT",
+                                data: {
+                                    '_token': "{{ csrf_token() }}",
+                                    'checkbox_item': id,
+                                    'status': result.value
+                                },
+                                success: function(data) {
+                                    Swal.fire({
+                                        title: "Berhasil!",
+                                        text: "Data berhasil dikonfirmasi",
+                                        icon: "success",
+                                        button: "Tutup",
+                                    });
+                                    $('#tbgalleryphoto').DataTable().ajax.reload();
+                                },
+                                error: function(data) {
+                                    Swal.fire({
+                                        title: "Gagal!",
+                                        text: "Data gagal dikonfirmasi",
+                                        icon: "error",
+                                        button: "Tutup",
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Pilih data yang ingin dikonfirmasi!",
+                        icon: "warning",
+                        button: "Tutup",
+                    });
                 }
             });
 
@@ -168,7 +230,7 @@
                     }).then((willDelete) => {
                         if (willDelete) {
                             $.ajax({
-                                url: "{{ url('backend/article/delete') }}",
+                                url: "{{ url('backend/gallery/delete') }}",
                                 type: "DELETE",
                                 data: {
                                     '_token': "{{ csrf_token() }}",
@@ -182,7 +244,7 @@
                                         button: "Tutup",
                                     });
                                     $('.checkbox_all').prop('checked', false);
-                                    $('#tbarticle').DataTable().ajax.reload();
+                                    $('#tbgalleryphoto').DataTable().ajax.reload();
                                 },
                                 error: function(data) {
                                     Swal.fire({
@@ -204,69 +266,54 @@
                 }
             });
 
-            $('#update_status').click(function() {
-                var id = [];
-                $('.checkbox_item:checked').each(function() {
-                    id.push($(this).val());
+            $('#add').click(function() {
+                Swal.fire({
+                    title: 'Tambah Album Foto',
+                    input: 'text',
+                    inputPlaceholder: 'Nama Album Foto',
+                    showCancelButton: true,
+                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Tambah',
+                    inputValidator: function(value) {
+                        return new Promise(function(resolve, reject) {
+                            if (value == '') {
+                                resolve(
+                                    'Nama Album Foto tidak boleh kosong!');
+                            } else {
+                                resolve();
+                            }
+                        });
+                    }
+                }).then(function(result) {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ url('backend/gallery/create') }}",
+                            type: "POST",
+                            data: {
+                                '_token': "{{ csrf_token() }}",
+                                'name': result.value,
+                                'album': "image"
+                            },
+                            success: function(data) {
+                                Swal.fire({
+                                    title: "Berhasil!",
+                                    text: "Data berhasil ditambahkan",
+                                    icon: "success",
+                                    button: "Tutup",
+                                });
+                                $('#tbgalleryphoto').DataTable().ajax.reload();
+                            },
+                            error: function(data) {
+                                Swal.fire({
+                                    title: "Gagal!",
+                                    text: "Data gagal ditambahkan",
+                                    icon: "error",
+                                    button: "Tutup",
+                                });
+                            }
+                        });
+                    }
                 });
-                if (id.length > 0) {
-                    Swal.fire({
-                        title: 'Konfirmasi persetujuan status artikel',
-                        input: 'select',
-                        inputOptions: {
-                            'Terbit': 'Terbit',
-                            'Tunggu': 'Tunggu',
-                            'Arsip': 'Arsip'
-                        },
-                        inputPlaceholder: '--pilih--',
-                        showCancelButton: true,
-                        inputValidator: function(value) {
-                            return new Promise(function(resolve, reject) {
-                                if (value == '') {
-                                    resolve(
-                                        'Anda harus memilih persetujuan status artikel');
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        }
-                    }).then(function(result) {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: "{{ url('backend/article/update_status') }}",
-                                type: "PUT",
-                                data: {
-                                    '_token': "{{ csrf_token() }}",
-                                    'checkbox_item': id,
-                                    'status': result.value
-                                },
-                                success: function(data) {
-                                    Swal.fire({
-                                        title: "Berhasil!",
-                                        text: "Data berhasil dikonfirmasi",
-                                        icon: "success",
-                                        button: "Tutup",
-                                    });
-                                    $('#tbarticle').DataTable().ajax.reload();
-                                },
-                                error: function(data) {
-                                    Swal.fire({
-                                        title: "Gagal!",
-                                        text: "Data gagal dikonfirmasi",
-                                        icon: "error",
-                                        button: "Tutup",
-                                    });
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: "Pilih data yang ingin dikonfirmasi!",
-                        icon: "warning",
-                        button: "Tutup",
-                    });
-                }
             });
 
         });

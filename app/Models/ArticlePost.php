@@ -4,10 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Cviebrock\EloquentSluggable\Sluggable;
 class ArticlePost extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -18,16 +17,15 @@ class ArticlePost extends Model
         'id',
         'article_category_id',
         'article_index_id',
-        'user_id',
+        'user_account_id',
         'slug',
         'title',
-        'content',
+        'body',
         'views',
         'publish'
     ];
 
-
-    public function sluggable(): array
+    function sluggable () : array
     {
         return [
             'slug' => [
@@ -36,16 +34,16 @@ class ArticlePost extends Model
         ];
     }
 
-    public function article_index()
+    public function user_account()
     {
-    	return $this->belongsTo(ArticleIndex::class, 'article_index_id', 'id');
+        return $this->belongsTo(UserAccount::class, 'user_account_id');
     }
     public function article_category()
     {
-    	return $this->belongsTo(ArticleCategory::class, 'article_category_id', 'id');
+        return $this->belongsTo(ArticleCategory::class, 'article_category_id');
     }
-    public function user()
+    public function article_index()
     {
-    	return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(ArticleIndex::class, 'article_index_id');
     }
 }

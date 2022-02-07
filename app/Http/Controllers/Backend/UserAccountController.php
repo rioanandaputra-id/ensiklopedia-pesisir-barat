@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DasboardController extends Controller
+class UserAccountController extends Controller
 {
     protected $request;
 
@@ -16,6 +16,11 @@ class DasboardController extends Controller
 
     public function page_index()
     {
-        return view('Pages.Backend.Dasboard.index');
+        return view('Pages.Backend.Master.User.index');
+    }
+
+    public function page_profile()
+    {
+        return view('Pages.Backend.Master.User.profile');
     }
 }

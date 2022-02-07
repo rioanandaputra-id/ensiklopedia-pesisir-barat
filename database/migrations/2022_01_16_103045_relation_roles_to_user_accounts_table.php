@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RelationRolesToUsersTable extends Migration
+class RelationRolesToUserAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class RelationRolesToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('user_accounts', function (Blueprint $table) {
             $table->foreign('role_id')
                 ->references('id')
                 ->on('roles')
@@ -29,8 +29,8 @@ class RelationRolesToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_role_id_foreign');
+        Schema::table('user_accounts', function (Blueprint $table) {
+            $table->dropForeign('user_accounts_role_id_foreign');
         });
     }
 }

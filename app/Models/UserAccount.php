@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\ArticlePost;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-class User extends Model
+class UserAccount extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'users';
+    protected $table = 'user_accounts';
     public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'role_id',
@@ -21,12 +22,13 @@ class User extends Model
         'password',
         'active'
     ];
-    // protected $hidden = [
-    //     'created_at',
-    //     'updated_at'
-    // ];
     public function article_post()
     {
     	return $this->hasMany(ArticlePost::class);
+    }
+
+    public function gallery_album()
+    {
+    	return $this->hasMany(GalleryAlbum::class);
     }
 }

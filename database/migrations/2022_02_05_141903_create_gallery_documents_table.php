@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticleDocumentsTable extends Migration
+class CreateGalleryDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateArticleDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_documents', function (Blueprint $table) {
+        Schema::create('gallery_documents', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('article_post_id');
-            $table->string('name', 255);
-            $table->text('path');
-            $table->enum('type', ['image', 'video', 'audio', 'document']);
-            $table->boolean('uploded')->nullable()->default(true);
+            $table->foreignUuid('gallery_album_id');
+            $table->foreignUuid('document_id');
+            // $table->string('description',150);
             // $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateArticleDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_documents');
+        Schema::dropIfExists('gallery_documents');
     }
 }

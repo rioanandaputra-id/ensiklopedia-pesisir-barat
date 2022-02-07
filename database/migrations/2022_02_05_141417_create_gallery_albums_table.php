@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlePostsTable extends Migration
+class CreateGalleryAlbumsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateArticlePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_posts', function (Blueprint $table) {
+        Schema::create('gallery_albums', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('article_category_id');
-            $table->foreignUuid('article_index_id');
             $table->foreignUuid('user_account_id');
-            $table->char('slug', 255)->unique();
-            $table->string('title', 255);
-            $table->longText('body');
-            $table->bigInteger('views')->default(0);
+            $table->string('name', 150);
+            $table->enum('album', ['image', 'video'])->default('image');
             $table->enum('status', ['Tunggu', 'Terbit', 'Arsip']);
             $table->timestamps();
         });
@@ -34,6 +30,6 @@ class CreateArticlePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_posts');
+        Schema::dropIfExists('gallery_albums');
     }
 }

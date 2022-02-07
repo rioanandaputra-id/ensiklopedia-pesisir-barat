@@ -6,18 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-class ArticleIndex extends Model
+
+class Document extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'article_indexs';
+    protected $table = 'documents';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     public $timestamps = false;
     protected $fillable = [
         'id',
-        'indexx'
+        'title',
+        'path',
+        'type',
+        'uploded'
     ];
-    public function article_post()
+
+    public function gallery_document ()
     {
-    	return $this->hasMany(ArticlePost::class);
+        return $this->hasMany(GalleryDocument::class, 'document_id', 'id');
     }
 }

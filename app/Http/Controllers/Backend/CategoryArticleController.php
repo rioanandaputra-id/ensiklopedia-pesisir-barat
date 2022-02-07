@@ -9,16 +9,14 @@ use Illuminate\Http\Request;
 class CategoryArticleController extends Controller
 {
     protected $request;
-    protected $categoryarticle;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->categoryarticle = new ArticleCategory();
     }
 
-    public function index()
+    public function page_index()
     {
-        return view('Pages.Backend.comingsoon');
+        return view('Pages.Backend.Master.CategoryArticle.index');
     }
 }

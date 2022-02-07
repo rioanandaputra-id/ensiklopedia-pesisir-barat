@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function index($slug)
+    protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function page_index($slug)
     {
         $articles = ArticlePost::with([
             'article_index:id,indexx',
             'article_category:id,categoryy',
-            'user:id,fullname'
+            'user_account:id,fullname'
         ])
         ->where('slug', $slug)
         ->first();

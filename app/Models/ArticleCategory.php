@@ -11,14 +11,11 @@ class ArticleCategory extends Model
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'article_categorys';
     public $incrementing = false;
+    public $timestamps = false;
     protected $fillable = [
         'id',
 		'categoryy'
     ];
-    // protected $hidden = [
-    //     'created_at',
-    //     'updated_at'
-    // ];
     public function article_post()
     {
     	return $this->hasMany(ArticlePost::class);

@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\ArticleDocument;
+use App\Models\Document;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
-    public function photo()
+    public function page_photo()
     {
-        $photos = ArticleDocument::where('type', 'image')->paginate(15);
+        $photos = Document::where('type', 'image')->paginate(15);
         return view('Pages.Frontend.Gallery.photo', compact('photos'));
     }
-    public function video()
+    public function page_video()
     {
-        $videos = ArticleDocument::where('type', 'video')->paginate(15);
+        $videos = Document::where('type', 'video')->paginate(15);
         return view('Pages.Frontend.Gallery.video', compact('videos'));
     }
 }

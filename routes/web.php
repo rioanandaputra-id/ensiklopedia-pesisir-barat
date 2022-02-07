@@ -2,64 +2,59 @@
 
 use Illuminate\Support\Facades\Route;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::group([
     'namespace' => 'App\Http\Controllers\Frontend',
     'prefix' => '/'
-], function () {
-    Route::get('/', 'BerandaController@index');
-    Route::get('article/{slug}', 'ArticleController@index');
-    Route::get('gallery/photo', 'GalleryController@photo');
-    Route::get('gallery/video', 'GalleryController@video');
-    Route::get('about', 'AboutController@index');
+    ], function () {
+        Route::get('/', 'BerandaController@page_index');
+        Route::get('article/{slug}', 'ArticleController@page_index');
+        Route::get('gallery/photo', 'GalleryController@page_photo');
+        Route::get('gallery/video', 'GalleryController@page_video');
+        Route::get('about', 'AboutController@page_index');
 });
 
 Route::group([
     'namespace' => 'App\Http\Controllers\Auth',
     'prefix' => 'auth'
-], function () {
-    Route::get('login', 'Auth\AuthController@login');
-    Route::get('logout', 'Auth\AuthController@logout');
-    Route::get('forget', 'Auth\AuthController@forget');
-    Route::get('register', 'Auth\AuthController@register');
+    ], function () {
+        Route::get('login', 'Auth\AuthController@login');
+        Route::get('logout', 'Auth\AuthController@logout');
+        Route::get('forget', 'Auth\AuthController@forget');
+        Route::get('register', 'Auth\AuthController@register');
 });
 
-Route::group([
-    'namespace' => 'App\Http\Controllers\Backend',
-    'prefix' => 'backend'
-], function () {
-    Route::get('/', 'DasboardController@index');
-    Route::get('category_article', 'CategoryArticleController@index');
-    Route::get('index_article', 'IndexArticleController@index');
-    Route::get('page_web', 'PageWebController@index');
-    Route::get('comment_article', 'CommentArticleController@index');
-    Route::get('user', 'UserController@index');
-    Route::get('photo', 'GalleryController@photo');
-    Route::get('video', 'GalleryController@video');
-    Route::get('profile', 'UserController@profile');
+Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backend'], function () {
+    Route::get('/', 'DasboardController@page_index');
+    Route::get('profile', 'UserAccountController@page_profile');
+
+    Route::prefix('master')->group(function () {
+        Route::get('user', 'UserAccountController@page_index');
+        Route::get('category_article', 'CategoryArticleController@page_index');
+        Route::get('index_article', 'IndexArticleController@page_index');
+        Route::get('page_web', 'PageWebController@page_index');
+    });
 
     Route::prefix('article')->group(function () {
-        Route::get('/', 'ArticleController@index')->name('backend.article');
-        // Route::get('/{slug}', 'ArticleController@index');
-        Route::get('/add', 'ArticleController@add')->name('backend.article.add');
-        Route::post('/add', 'ArticleController@create')->name('backend.article.create');
-        Route::get('/edit/{slug}', 'ArticleController@edit')->name('backend.article.edit');
+        Route::get('/', 'ArticleController@page_index');
+        Route::get('/add', 'ArticleController@page_add');
+        Route::get('/edit', 'ArticleController@page_edit');
 
-        Route::post('/update', 'ArticleController@update')->name('backend.article.update');
-        Route::delete('/delete/{slug}', 'ArticleController@delete')->name('backend.article.delete');
+        Route::post('/create', 'ArticleController@create_data');
+        Route::get('/read', 'ArticleController@read_data');
+        Route::put('/update', 'ArticleController@update_data');
+        Route::put('/update_status', 'ArticleController@update_data_status');
+        Route::delete('/delete', 'ArticleController@delete_data');
+    });
 
-        Route::get('/datatable', 'ArticleController@datatable')->name('backend.article.datatable');
+    Route::prefix('gallery')->group(function () {
+        Route::get('photo', 'GalleryAlbumController@page_photo');
+        Route::get('photo/read', 'GalleryAlbumController@read_photo');
 
+        Route::post('create', 'GalleryAlbumController@create_gallery');
+        Route::delete('delete', 'GalleryAlbumController@delete_gallery');
+        Route::put('update_status', 'GalleryAlbumController@update_status_gallery');
+
+        Route::get('video', 'GalleryAlbumController@page_video');
+        Route::get('video/read', 'GalleryAlbumController@read_video');
     });
 });

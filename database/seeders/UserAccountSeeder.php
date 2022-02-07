@@ -3,13 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
-use App\Models\User;
+use App\Models\UserAccount;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Facades\DB;
 
-class UserSeeder extends Seeder
+class UserAccountSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,15 +17,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $administrator = DB::table('roles')->select('id')->where('name', 'Administrator')->first();
-        $contributor = DB::table('roles')->select('id')->where('name', 'Contributor')->first();
+        $administrator = Role::where('role', 'administrator')->first('id');
+        $contributor = Role::where('role', 'contributor')->first('id');
 
         $users = [
             [
                 'id' => Uuid::uuid4(),
                 'role_id' => $administrator->id,
-                'image_path' => 'https://via.placeholder.com/640x480.png/0022aa?text=Administrator',
-                'image_uploded' => false,
                 'fullname' => 'Administrator',
                 'username' => 'admin',
                 'email' => 'admin@ensiklopedia.test',
@@ -36,8 +33,6 @@ class UserSeeder extends Seeder
             [
                 'id' => Uuid::uuid4(),
                 'role_id' => $contributor->id,
-                'image_path' => 'https://via.placeholder.com/640x480.png/0022aa?text=Contributor',
-                'image_uploded' => false,
                 'fullname' => 'Contributor',
                 'username' => 'user',
                 'email' => 'user@ensiklopedia.test',
@@ -47,7 +42,7 @@ class UserSeeder extends Seeder
         ];
 
         foreach($users as $user){
-            User::insert($user);
+            UserAccount::insert($user);
         }
     }
 }
