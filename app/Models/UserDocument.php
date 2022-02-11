@@ -16,7 +16,18 @@ class UserDocument extends Model
     public $timestamps = false;
     protected $fillable = [
         'id',
-        'user_id',
+        'user_account_id',
         'document_id'
     ];
+
+    public function user_account()
+    {
+        return $this->belongsTo(UserAccount::class, 'user_account_id', 'id');
+    }
+
+    public function document()
+    {
+        return $this->belongsTo(Document::class, 'document_id', 'id');
+    }
+
 }

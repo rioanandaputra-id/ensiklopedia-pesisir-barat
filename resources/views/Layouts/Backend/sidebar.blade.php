@@ -13,7 +13,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ url('backend/profile') }}" class="d-block">Tambat Ramdhani</a>
+                <a href="{{ url('backend/profile') }}" class="d-block">Rio Ananda Putra</a>
                 <span class="d-block text-sm">Administrator</span>
             </div>
         </div>

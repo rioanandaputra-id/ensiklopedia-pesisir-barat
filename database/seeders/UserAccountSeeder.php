@@ -42,7 +42,7 @@ class UserAccountSeeder extends Seeder
         ];
 
         foreach($users as $user){
-            UserAccount::insert($user);
+            UserAccount::create($user);
         }
     }
 }

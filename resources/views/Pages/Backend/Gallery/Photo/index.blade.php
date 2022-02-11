@@ -1,5 +1,5 @@
 @extends('Layouts.Backend.master')
-@section('title', 'Halaman Galleri - Foto ' . Str::ucfirst(request()->status))
+@section('title', 'Halaman Galleri Foto - Status ' . Str::ucfirst(request()->status))
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/Backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">

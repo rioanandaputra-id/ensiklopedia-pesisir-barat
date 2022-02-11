@@ -21,7 +21,7 @@ class CreateUserAccountsTable extends Migration
             $table->string('email', 150)->unique();
             $table->string('password');
             $table->boolean('active')->default(false);
-            // $table->timestamps();
+            $table->timestamps();
         });
     }
 

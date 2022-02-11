@@ -18,4 +18,9 @@ class Role extends Model
         'id',
         'role'
     ];
+
+    public function user_account()
+    {
+        return $this->hasOne(UserAccount::class, 'role_id', 'id');
+    }
 }

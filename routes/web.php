@@ -29,6 +29,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backen
 
     Route::prefix('master')->group(function () {
         Route::get('user', 'UserAccountController@page_index');
+        Route::get('user/add', 'UserAccountController@page_add');
+        Route::get('user/edit', 'UserAccountController@page_edit');
+        Route::get('user/read', 'UserAccountController@read_data');
+
+
+        Route::post('user/create', 'UserAccountController@create_data');
+        Route::delete('user/delete', 'UserAccountController@delete_data');
+        Route::put('user/update', 'UserAccountController@update_data');
+        Route::put('user/update_status', 'UserAccountController@update_data_status');
+
         Route::get('category_article', 'CategoryArticleController@page_index');
         Route::get('index_article', 'IndexArticleController@page_index');
         Route::get('page_web', 'PageWebController@page_index');
@@ -49,6 +59,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backen
     Route::prefix('gallery')->group(function () {
         Route::get('photo', 'GalleryAlbumController@page_photo');
         Route::get('photo/read', 'GalleryAlbumController@read_photo');
+        Route::get('photo/edit', 'GalleryAlbumController@page_edit_photo');
+
+        Route::post('upload', 'GalleryAlbumController@upload_photo_video');
+        Route::delete('unlink', 'GalleryAlbumController@unlink_photo_video');
 
         Route::post('create', 'GalleryAlbumController@create_gallery');
         Route::delete('delete', 'GalleryAlbumController@delete_gallery');
@@ -56,5 +70,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backen
 
         Route::get('video', 'GalleryAlbumController@page_video');
         Route::get('video/read', 'GalleryAlbumController@read_video');
+        Route::get('video/edit', 'GalleryAlbumController@page_edit_video');
     });
 });

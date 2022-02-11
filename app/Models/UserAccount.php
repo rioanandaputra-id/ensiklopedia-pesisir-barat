@@ -12,7 +12,7 @@ class UserAccount extends Model
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'user_accounts';
     public $incrementing = false;
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $fillable = [
         'id',
         'role_id',
@@ -22,13 +22,24 @@ class UserAccount extends Model
         'password',
         'active'
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
     public function article_post()
     {
-    	return $this->hasMany(ArticlePost::class);
+    	return $this->hasMany(ArticlePost::class, 'user_account_id', 'id');
     }
 
     public function gallery_album()
     {
-    	return $this->hasMany(GalleryAlbum::class);
+    	return $this->hasMany(GalleryAlbum::class, 'user_account_id', 'id');
+    }
+
+    public function user_document()
+    {
+        return $this->hasMany(UserDocument::class, 'user_account_id', 'id');
     }
 }

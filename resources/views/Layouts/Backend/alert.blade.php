@@ -9,13 +9,16 @@
                     </button>
                 </div>
             @endif
-            @if (session('error'))
-                <div class="alert alert-error alert-dismissible fade show" role="alert">
-                    <strong>{{ session('error') }}</strong>
+
+            @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ $error }}</strong>
                     <button type="button" class="bg-white close" data-dismiss="alert" aria-label="Close">
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
+                @endforeach
             @endif
         </div>
     </div>

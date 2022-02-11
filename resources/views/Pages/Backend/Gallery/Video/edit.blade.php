@@ -1,5 +1,27 @@
+@php
+function getYoutubeEmbedUrl($url)
+{
+    $shortUrlRegex = '/youtu.be\/([a-zA-Z0-9_-]+)\??/i';
+    $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
+
+    if (preg_match($longUrlRegex, $url, $matches)) {
+        $youtube_id = $matches[count($matches) - 1];
+    }
+
+    if (preg_match($shortUrlRegex, $url, $matches)) {
+        $youtube_id = $matches[count($matches) - 1];
+    }
+
+    if (!empty($youtube_id)) {
+        return 'https://www.youtube.com/embed/' . $youtube_id;
+    } else {
+         return $url;
+    }
+}
+@endphp
+
 @extends('Layouts.Backend.master')
-@section('title', 'Halaman Galleri Foto - Unggah')
+@section('title', 'Halaman Galleri Video - Unggah')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/Backend/plugins/dropzone/min/dropzone.min.css') }}">
@@ -34,14 +56,14 @@
                             <div class="col-md-12">
 
                                 <div class="mb-3">
-                                    <label for="body" class="form-label">Nama Album Foto: <i
+                                    <label for="body" class="form-label">Nama Album Video: <i
                                             class="text-danger">*</i></label>
                                     <input type="text" class="form-control" value="{{ $albums->name }}" readonly>
                                 </div>
 
                                 <div class="card card-default">
                                     <div class="card-header">
-                                        <h3 class="card-title">Pilih Foto untuk diunggah atau seret dan jatuhkan foto
+                                        <h3 class="card-title">Pilih Video untuk diunggah atau seret dan jatuhkan Video
                                             pada area kolom dibawah</h3>
                                     </div>
                                     <div class="card-body">
@@ -50,7 +72,7 @@
                                                 <div class="btn-group w-100">
                                                     <span class="btn btn-success col fileinput-button">
                                                         <i class="fas fa-plus"></i>
-                                                        <span>Pilih foto</span>
+                                                        <span>Pilih Video</span>
                                                     </span>
                                                     <button type="submit" class="btn btn-primary col start">
                                                         <i class="fas fa-upload"></i>
@@ -62,7 +84,7 @@
                                                     </button>
                                                     <button type="button" class="btn bg-purple col" id="btnurl">
                                                         <i class="fas fa-link"></i>
-                                                        <span>Foto Via URL</span>
+                                                        <span>Video Via URL</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -130,7 +152,7 @@
                             <div class="col-md-12">
                                 <div class="card card-primary">
                                     <div class="card-header">
-                                        <h4 class="card-title">Foto Tersimpan</h4>
+                                        <h4 class="card-title">Video Tersimpan</h4>
                                         <button type="button" class="btn btn-danger btn-sm float-right" id="delete"> <i
                                                 class="fa fa-trash"></i> Hapus</button>
                                     </div>
@@ -139,27 +161,27 @@
                                             @php
                                                 $i = 1;
                                             @endphp
-                                            @foreach ($photos as $photo)
-                                                <div class="col-sm-2">
-                                                    @if ($photo->document->uploaded != 0)
+                                            @foreach ($videos as $video)
+                                                <div class="col-sm-3">
+                                                    @if ($video->document->uploaded != 0)
                                                         <input type="checkbox" name="checkbox_item[]" class="checkbox_item"
-                                                            value="{{ $photo->document->id }}">
-                                                        <a href="{{ url($photo->document->path) }}" data-toggle="lightbox"
-                                                            data-title="Foto {{ $i }} - {{ $photo->document->title }}"
-                                                            data-gallery="gallery">
-                                                            <img src="{{ url($photo->document->path) }}"
-                                                                class="img-fluid mb-2"
-                                                                alt="{{ $photo->document->title }}">
+                                                            value="{{ $video->document->id }}">
+                                                            {{-- Video {{ $i }} - {{ $video->document->title }} --}}
+                                                            <iframe width="200" width="150"
+                                                                src="{{ url($video->document->path) }}"
+                                                                title="{{ $video->document->title }}" frameborder="0"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                allowfullscreen></iframe>
                                                         </a>
                                                     @else
                                                         <input type="checkbox" name="checkbox_item[]" class="checkbox_item"
-                                                            value="{{ $photo->document->id }}">
-                                                        <a href="{{ $photo->document->path }}" data-toggle="lightbox"
-                                                            data-title="Foto {{ $i }} - {{ $photo->document->title }}"
-                                                            data-gallery="gallery">
-                                                            <img src="{{ $photo->document->path }}"
-                                                                class="img-fluid mb-2"
-                                                                alt="{{ $photo->document->title }}">
+                                                            value="{{ $video->document->id }}">
+                                                            {{-- Video {{ $i }} - {{ $video->document->title }} --}}
+                                                            <iframe width="200" width="150"
+                                                                src="{{ getYoutubeEmbedUrl($video->document->path) }}"
+                                                                title="{{ $video->document->title }}" frameborder="0"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                allowfullscreen></iframe>
                                                         </a>
                                                     @endif
                                                 </div>
@@ -197,91 +219,56 @@
             });
         })
 
-        // DropzoneJS Demo Code Start
         Dropzone.autoDiscover = false
-
-        // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
         var previewNode = document.querySelector("#template")
         previewNode.id = ""
         var previewTemplate = previewNode.parentNode.innerHTML
         previewNode.parentNode.removeChild(previewNode)
 
-        var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-            url: "{{ url('backend/gallery/upload') }}", // Set the url
+        var myDropzone = new Dropzone(document.body, {
+            url: "{{ url('backend/gallery/upload') }}",
             method: 'POST',
             params: {
                 '_token': "{{ csrf_token() }}",
                 'id': "{{ $albums->id }}",
-                'type': 'image',
+                'type': 'video',
                 'uploaded': 1,
             },
             thumbnailWidth: 80,
             thumbnailHeight: 80,
             parallelUploads: 20,
             previewTemplate: previewTemplate,
-            autoQueue: false, // Make sure the files aren't queued until manually added
-            previewsContainer: "#previews", // Define the container to display the previews
-            clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
+            autoQueue: false,
+            previewsContainer: "#previews",
+            clickable: ".fileinput-button",
         })
 
         myDropzone.on("addedfile", function(file) {
-            // Hookup the start button
             file.previewElement.querySelector(".start").onclick = function() {
                 myDropzone.enqueueFile(file)
             }
         })
 
-        // Update the total progress bar
         myDropzone.on("totaluploadprogress", function(progress) {
             document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
         })
 
         myDropzone.on("sending", function(file) {
-            // Show the total progress bar when upload starts
             document.querySelector("#total-progress").style.opacity = "1"
-            // And disable the start button
             file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
         })
 
-        // Hide the total progress bar when nothing's uploading anymore
         myDropzone.on("queuecomplete", function(progress) {
             document.querySelector("#total-progress").style.opacity = "0"
             location.reload();
         })
-
-
-        // myDropzone.on('success', function(file, response) {
-        //     swal.fire({
-        //         title: 'Berhasil!',
-        //         text: 'Foto berhasil diunggah',
-        //         type: 'success',
-        //         confirmButtonText: 'OK'
-        //     })
-        // });
-
-        // myDropzone.on('error', function(file, response) {
-        //     break;
-        //     swal.fire({
-        //         title: 'Gagal!',
-        //         text: 'Foto gagal diunggah',
-        //         type: 'error',
-        //         confirmButtonText: 'OK'
-        //     })
-        // });
-
-        // Setup the buttons for all transfers
-        // The "add files" button doesn't need to be setup because the config
-        // `clickable` has already been specified.
         document.querySelector("#actions .start").onclick = function() {
             myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
         }
         document.querySelector("#actions .cancel").onclick = function() {
             myDropzone.removeAllFiles(true)
         }
-        // DropzoneJS Demo Code End
 
-
-        // delete select items
         $('#delete').click(function() {
             var id = [];
             $('.checkbox_item:checked').each(function() {
@@ -303,7 +290,7 @@
                             data: {
                                 '_token': "{{ csrf_token() }}",
                                 'id': id,
-                                'type': 'image',
+                                'type': 'video',
                             },
                             success: function(data) {
                                 Swal.fire({
@@ -335,14 +322,11 @@
             }
         });
 
-        // btnurl
         $('#btnurl').click(function() {
-            // sweet alert with 2 input
             Swal.fire({
                 title: 'Tambah URL',
-                html:
-                    '<input id="swal-input1" class="swal2-input" placeholder="URL">' +
-                    '<input id="swal-input2" class="swal2-input" placeholder="Judul Foto">',
+                html: '<input id="swal-input1" class="swal2-input" placeholder="URL">' +
+                    '<input id="swal-input2" class="swal2-input" placeholder="Judul Video">',
                 focusConfirm: false,
                 preConfirm: () => {
                     return [
@@ -358,7 +342,7 @@
                         data: {
                             '_token': "{{ csrf_token() }}",
                             'id': "{{ $albums->id }}",
-                            'type': 'image',
+                            'type': 'video',
                             'uploaded': 0,
                             'url': result.value[0],
                             'title': result.value[1],
@@ -383,60 +367,6 @@
                     });
                 }
             });
-
-
-            // Swal.fire({
-            //     title: 'Konfirmasi persetujuan status artikel',
-            //     input: 'select',
-            //     inputOptions: {
-            //         'Terbit': 'Terbit',
-            //         'Tunggu': 'Tunggu',
-            //         'Arsip': 'Arsip'
-            //     },
-            //     inputPlaceholder: '--pilih--',
-            //     showCancelButton: true,
-            //     inputValidator: function(value) {
-            //         return new Promise(function(resolve, reject) {
-            //             if (value == '') {
-            //                 resolve(
-            //                     'Anda harus memilih persetujuan status artikel');
-            //             } else {
-            //                 resolve();
-            //             }
-            //         });
-            //     }
-            // }).then(function(result) {
-            //     if (result.isConfirmed) {
-            //         $.ajax({
-            //             url: "{{ url('backend/gallery/upload') }}",
-            //             type: "PUT",
-            //             data: {
-            //                 '_token': "{{ csrf_token() }}",
-            //                 'id': "{{ $albums->id }}",
-            //                 'type': 'image',
-            //                 'uploaded': 0,
-            //                 'url': result.value
-            //             },
-            //             success: function(data) {
-            //                 Swal.fire({
-            //                     title: "Berhasil!",
-            //                     text: "Data berhasil dikonfirmasi",
-            //                     icon: "success",
-            //                     button: "Tutup",
-            //                 });
-            //                 $('#tbarticle').DataTable().ajax.reload();
-            //             },
-            //             error: function(data) {
-            //                 Swal.fire({
-            //                     title: "Gagal!",
-            //                     text: "Data gagal dikonfirmasi",
-            //                     icon: "error",
-            //                     button: "Tutup",
-            //                 });
-            //             }
-            //         });
-            //     }
-            // });
         });
     </script>
 @stop
