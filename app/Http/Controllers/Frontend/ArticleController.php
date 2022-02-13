@@ -20,7 +20,7 @@ class ArticleController extends Controller
         $articles = ArticlePost::with([
             'article_index:id,indexx',
             'article_category:id,categoryy',
-            'user_account:id,fullname'
+            'user:id,name'
         ])
         ->where('slug', $slug)
         ->first();

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RelationDocumentsToUserDocumentsTable extends Migration
+class RelationDocumentsToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class RelationDocumentsToUserDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('user_documents', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
         });
     }
@@ -25,8 +25,8 @@ class RelationDocumentsToUserDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('user_documents', function (Blueprint $table) {
-            $table->dropForeign('user_documents_document_id_foreign');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_document_id_foreign');
         });
     }
 }

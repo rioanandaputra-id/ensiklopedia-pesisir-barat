@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\GalleryAlbum;
 use App\Models\GalleryDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\Uuid;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
@@ -118,9 +119,12 @@ class GalleryAlbumController extends Controller
     public function read_photo()
     {
         if ($this->request->ajax()) {
-            $albums = GalleryAlbum::with('user_account')->where('album', 'image');
+            $albums = GalleryAlbum::with('user')->where('type', 'image');
             if (!empty($this->request->get('status'))) {
                 $albums->where('status', $this->request->get('status'));
+            }
+            if(Auth::user()->role == 'Contributor'){
+                $albums->where('user_id', Auth::user()->id);
             }
             return FacadesDataTables::of($albums)
                 ->addColumn('action', function ($albums) {
@@ -143,9 +147,12 @@ class GalleryAlbumController extends Controller
     public function read_video()
     {
         if ($this->request->ajax()) {
-            $albums = GalleryAlbum::with('user_account')->where('album', 'video');
+            $albums = GalleryAlbum::with('user')->where('type', 'video');
             if (!empty($this->request->get('status'))) {
                 $albums->where('status', $this->request->get('status'));
+            }
+            if(Auth::user()->role == 'Contributor'){
+                $albums->where('user_id', Auth::user()->id);
             }
             return FacadesDataTables::of($albums)
                 ->addColumn('action', function ($albums) {
@@ -168,16 +175,16 @@ class GalleryAlbumController extends Controller
     function create_gallery()
     {
         $this->validate($this->request, [
-            'name' => 'required|string|max:155',
-            'album' => 'required',
+            'album' => 'required|string|max:155',
+            'type' => 'required',
         ]);
 
         $album = new GalleryAlbum();
         $album->id = Uuid::uuid4();
-        $album->user_account_id = env('USER_ACCOUNT_ID');
-        $album->name = $this->request->get('name');
+        $album->user_id = Auth::user()->id;
         $album->album = $this->request->get('album');
-        $album->status = 'Tunggu';
+        $album->type = $this->request->get('type');
+        $album->status = 'Arsip';
         $album->save();
     }
 
@@ -186,12 +193,20 @@ class GalleryAlbumController extends Controller
         $this->validate($this->request, [
             'checkbox_item' => 'required',
         ]);
+        $ids = $this->request->get('checkbox_item');
+        $album = GalleryAlbum::whereIn('id', $ids);
+        $gallery_document = GalleryDocument::whereIn('gallery_album_id', $ids);
+        $document = Document::whereIn('id', $gallery_document->get(['document_id']));
 
-        $checkbox_item = $this->request->get('checkbox_item');
-        foreach ($checkbox_item as $item) {
-            $album = GalleryAlbum::find($item);
-            $album->delete();
+        foreach ($document->get() as $key) {
+            if (file_exists(public_path($key->path))) {
+                unlink(public_path($key->path));
+            }
         }
+
+        $album->delete();
+        $gallery_document->delete();
+        $document->delete();
     }
 
     public function update_status_gallery()

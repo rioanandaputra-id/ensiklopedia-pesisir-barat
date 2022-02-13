@@ -17,12 +17,12 @@ class CreateArticlePostsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('article_category_id');
             $table->foreignUuid('article_index_id');
-            $table->foreignUuid('user_account_id');
+            $table->foreignUuid('user_id');
             $table->char('slug', 255)->unique();
             $table->string('title', 255);
             $table->longText('body');
             $table->bigInteger('views')->default(0);
-            $table->enum('status', ['Tunggu', 'Terbit', 'Arsip']);
+            $table->enum('status', ['Terbit', 'Arsip'])->default('Arsip');
             $table->timestamps();
         });
     }

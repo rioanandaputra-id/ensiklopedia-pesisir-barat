@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Cviebrock\EloquentSluggable\Sluggable;
+
 class ArticlePost extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -17,7 +18,7 @@ class ArticlePost extends Model
         'id',
         'article_category_id',
         'article_index_id',
-        'user_account_id',
+        'user_id',
         'slug',
         'title',
         'body',
@@ -34,16 +35,16 @@ class ArticlePost extends Model
         ];
     }
 
-    public function user_account()
+    public function user()
     {
-        return $this->belongsTo(UserAccount::class, 'user_account_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function article_category()
     {
-        return $this->belongsTo(ArticleCategory::class, 'article_category_id');
+        return $this->belongsTo(ArticleCategory::class, 'article_category_id', 'id');
     }
     public function article_index()
     {
-        return $this->belongsTo(ArticleIndex::class, 'article_index_id');
+        return $this->belongsTo(ArticleIndex::class, 'article_index_id', 'id');
     }
 }

@@ -110,8 +110,8 @@
                         className: 'text-center',
                     },
                     {
-                        data: 'fullname',
-                        name: 'fullname',
+                        data: 'name',
+                        name: 'name',
                         className: 'text-left',
                     },
                     {
@@ -132,7 +132,7 @@
                         className: 'text-left',
                     },
                     {
-                        data: 'role.role',
+                        data: 'role',
                         name: 'role',
                         orderable: false,
                         searchable: false,

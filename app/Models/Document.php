@@ -27,8 +27,8 @@ class Document extends Model
         return $this->hasMany(GalleryDocument::class, 'document_id', 'id');
     }
 
-    public function user_document ()
+    public function user ()
     {
-        return $this->hasMany(UserDocument::class, 'document_id', 'id');
+        return $this->hasOne(User::class, 'document_id', 'id');
     }
 }

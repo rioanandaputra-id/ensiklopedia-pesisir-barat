@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+Auth::routes();
 Route::group([
     'namespace' => 'App\Http\Controllers\Frontend',
     'prefix' => '/'
@@ -13,35 +15,31 @@ Route::group([
         Route::get('about', 'AboutController@page_index');
 });
 
-Route::group([
-    'namespace' => 'App\Http\Controllers\Auth',
-    'prefix' => 'auth'
-    ], function () {
-        Route::get('login', 'Auth\AuthController@login');
-        Route::get('logout', 'Auth\AuthController@logout');
-        Route::get('forget', 'Auth\AuthController@forget');
-        Route::get('register', 'Auth\AuthController@register');
-});
-
-Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backend'], function () {
+Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backend', 'middleware' => 'auth'], function () {
     Route::get('/', 'DasboardController@page_index');
-    Route::get('profile', 'UserAccountController@page_profile');
+    Route::get('profile', 'UserController@page_profile');
 
     Route::prefix('master')->group(function () {
-        Route::get('user', 'UserAccountController@page_index');
-        Route::get('user/add', 'UserAccountController@page_add');
-        Route::get('user/edit', 'UserAccountController@page_edit');
-        Route::get('user/read', 'UserAccountController@read_data');
+        Route::get('user', 'UserController@page_index');
+        Route::get('user/add', 'UserController@page_add');
+        Route::get('user/edit', 'UserController@page_edit');
+        Route::get('user/read', 'UserController@read_data');
 
 
-        Route::post('user/create', 'UserAccountController@create_data');
-        Route::delete('user/delete', 'UserAccountController@delete_data');
-        Route::put('user/update', 'UserAccountController@update_data');
-        Route::put('user/update_status', 'UserAccountController@update_data_status');
+        Route::post('user/create', 'UserController@create_data');
+        Route::delete('user/delete', 'UserController@delete_data');
+        Route::put('user/update', 'UserController@update_data');
+        Route::put('user/update_status', 'UserController@update_data_status');
 
-        Route::get('category_article', 'CategoryArticleController@page_index');
-        Route::get('index_article', 'IndexArticleController@page_index');
-        Route::get('page_web', 'PageWebController@page_index');
+        Route::get('category_article', 'ArticleCategoryController@page_index');
+        Route::get('category_article/read', 'ArticleCategoryController@read_data');
+        Route::post('category_article/create', 'ArticleCategoryController@create_data');
+        Route::put('category_article/update', 'ArticleCategoryController@update_data');
+        Route::delete('category_article/delete', 'ArticleCategoryController@delete_data');
+
+        Route::get('index_article', 'ArticleIndexController@page_index');
+        Route::get('index_article/read', 'ArticleIndexController@read_data');
+        Route::delete('index_article/delete', 'ArticleIndexController@delete_data');
     });
 
     Route::prefix('article')->group(function () {
@@ -72,4 +70,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backen
         Route::get('video/read', 'GalleryAlbumController@read_video');
         Route::get('video/edit', 'GalleryAlbumController@page_edit_video');
     });
+
+    Route::prefix('about')->group(function () {
+        Route::get('/', 'AboutController@page_index');
+        Route::put('/', 'AboutController@page_index');
+    });
 });
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

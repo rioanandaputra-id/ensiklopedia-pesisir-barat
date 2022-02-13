@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 use App\Models\ArticleCategory;
 use App\Models\ArticleIndex;
+use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 
@@ -51,7 +52,7 @@ class ArticleController extends Controller
         $category_id = $this->request->input('category_id');
         $title = $this->request->input('title');
         $body = $this->request->input('body');
-        $user_account_id = env('USER_ACCOUNT_ID');
+        $user_id = Auth::user()->id;
         $pott = Str::upper(Str::substr($title, 0, 1));
         $index = ArticleIndex::where('indexx', $pott)->select('id')->first();
         if(empty($index)){
@@ -64,7 +65,7 @@ class ArticleController extends Controller
             'body' => $body,
             'article_category_id' => $category_id,
             'article_index_id' => $index->id,
-            'user_account_id' => $user_account_id
+            'user_id' => $user_id
         ]);
 
         if ($post) {
@@ -85,10 +86,13 @@ class ArticleController extends Controller
     public function read_data()
     {
         if ($this->request->ajax()) {
-            $model = ArticlePost::with('article_index', 'article_category', 'user_account')
-                ->select('article_index_id', 'article_category_id', 'user_account_id', 'title', 'status', 'updated_at', 'slug');
+            $model = ArticlePost::with('article_index', 'article_category', 'user')
+                ->select('article_index_id', 'article_category_id', 'user_id', 'title', 'status', 'updated_at', 'slug');
             if (!empty($this->request->post('status'))) {
                 $model->where('status', $this->request->post('status'));
+            }
+            if(Auth::user()->role == 'Contributor'){
+                $model->where('user_id', Auth::user()->id);
             }
             return FacadesDataTables::eloquent($model)
                 ->addColumn('article_index', function (ArticlePost $post) {
@@ -97,8 +101,8 @@ class ArticleController extends Controller
                 ->addColumn('article_category', function (ArticlePost $post) {
                     return $post->article_category->categoryy;
                 })
-                ->addColumn('user_account', function (ArticlePost $post) {
-                    return $post->user_account->fullname;
+                ->addColumn('user', function (ArticlePost $post) {
+                    return $post->user->name;
                 })
                 ->editColumn('updated_at', function ($model) {
                     return date('d-m-Y H:i:s', strtotime($model->updated_at));

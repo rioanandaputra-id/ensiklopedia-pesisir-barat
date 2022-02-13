@@ -100,13 +100,13 @@
                         className: 'text-center',
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'album',
+                        name: 'album',
                         className: 'text-left',
                     },
                     {
-                        data: 'user_account.fullname',
-                        name: 'user_account.fullname',
+                        data: 'user.name',
+                        name: 'user.name',
                         className: 'text-left',
                     },
                     {
@@ -160,7 +160,6 @@
                         input: 'select',
                         inputOptions: {
                             'Terbit': 'Terbit',
-                            'Tunggu': 'Tunggu',
                             'Arsip': 'Arsip'
                         },
                         inputPlaceholder: '--pilih--',
@@ -228,7 +227,7 @@
                         showCancelButton: true,
                         dangerMode: true,
                     }).then((willDelete) => {
-                        if (willDelete) {
+                        if (willDelete.isConfirmed) {
                             $.ajax({
                                 url: "{{ url('backend/gallery/delete') }}",
                                 type: "DELETE",
@@ -291,8 +290,8 @@
                             type: "POST",
                             data: {
                                 '_token': "{{ csrf_token() }}",
-                                'name': result.value,
-                                'album': "video"
+                                'album': result.value,
+                                'type': "video"
                             },
                             success: function(data) {
                                 Swal.fire({

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RelationUserAccountsToArticlePostsTable extends Migration
+class RelationUsersToArticlePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class RelationUserAccountsToArticlePostsTable extends Migration
     public function up()
     {
         Schema::table('article_posts', function (Blueprint $table) {
-            $table->foreign('user_account_id')
+            $table->foreign('user_id')
             ->references('id')
-            ->on('user_accounts')
+            ->on('users')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });
@@ -30,7 +30,7 @@ class RelationUserAccountsToArticlePostsTable extends Migration
     public function down()
     {
         Schema::table('article_posts', function (Blueprint $table) {
-            $table->dropForeign('article_posts_user_account_id_foreign');
+            $table->dropForeign('article_posts_user_id_foreign');
         });
     }
 }

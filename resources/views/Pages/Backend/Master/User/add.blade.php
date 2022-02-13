@@ -32,8 +32,8 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="fullname">Nama Lengkap: <i class="text-danger">*</i></label></label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nama Lengkap">
+                            <label for="name">Nama Lengkap: <i class="text-danger">*</i></label></label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap">
                         </div>
                         <div class="form-group">
                             <label for="username">Username: <i class="text-danger">*</i></label></label>
@@ -57,11 +57,10 @@
                         </div>
                         <div class="form-group">
                             <label for="username">Role Pengguna: <i class="text-danger">*</i></label></label>
-                            <select class="form-control" id="role_id" name="role_id">
+                            <select class="form-control" id="role" name="role">
                                 <option value="">Pilih Role</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->role }}</option>
-                                @endforeach
+                                <option value="Administrator">Administrator</option>
+                                <option value="Contributor">Contributor</option>
                             </select>
                         </div>
                         <div class="form-group">

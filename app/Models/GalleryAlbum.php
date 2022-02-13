@@ -16,7 +16,7 @@ class GalleryAlbum extends Model
     // public $timestamps = false;
     protected $fillable = [
         'id',
-        'user_account_id',
+        'user_id',
         'album',
         'type',
         'created_at',
@@ -28,9 +28,9 @@ class GalleryAlbum extends Model
         return $this->hasMany(GalleryDocument::class, 'album_id', 'id');
     }
 
-    public function user_account ()
+    public function user ()
     {
-        return $this->belongsTo(UserAccount::class, 'user_account_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
 }

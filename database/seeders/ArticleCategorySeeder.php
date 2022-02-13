@@ -16,19 +16,19 @@ class ArticleCategorySeeder extends Seeder
     public function run()
     {
         $categorys = [
-            ['id' => Uuid::uuid4(), 'categoryy' => 'agama'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'bahasa'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'budaya'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'ekonomi'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'kuliner'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'olahraga'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'pemeritahan'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'pendidikan'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'perikanan'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'pertanian'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'peternakan'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'sejarah'],
-            ['id' => Uuid::uuid4(), 'categoryy' => 'wisata']
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'agama'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'bahasa'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'budaya'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'ekonomi'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'kuliner'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'olahraga'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'pemeritahan'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'pendidikan'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'perikanan'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'pertanian'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'peternakan'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'sejarah'],
+            ['id' => strval(Uuid::uuid4()), 'categoryy' => 'wisata']
         ];
 
         foreach($categorys as $category){

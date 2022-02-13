@@ -7,20 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Role extends Model
+class PageWeb extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'roles';
+    protected $table = 'page_web';
     protected $primaryKey = 'id';
     public $incrementing = false;
     public $timestamps = false;
     protected $fillable = [
         'id',
-        'role'
+        'title',
+        'body',
+        'created_at',
+        'updated_at'
     ];
-
-    public function user_account()
-    {
-        return $this->hasOne(UserAccount::class, 'role_id', 'id');
-    }
 }

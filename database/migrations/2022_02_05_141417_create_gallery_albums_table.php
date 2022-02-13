@@ -15,10 +15,10 @@ class CreateGalleryAlbumsTable extends Migration
     {
         Schema::create('gallery_albums', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_account_id');
-            $table->string('name', 150);
-            $table->enum('album', ['image', 'video'])->default('image');
-            $table->enum('status', ['Tunggu', 'Terbit', 'Arsip']);
+            $table->foreignUuid('user_id');
+            $table->string('album', 150);
+            $table->enum('type', ['image', 'video'])->default('image');
+            $table->enum('status', ['Terbit', 'Arsip'])->default('Arsip');
             $table->timestamps();
         });
     }

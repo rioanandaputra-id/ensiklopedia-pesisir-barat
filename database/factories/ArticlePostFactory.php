@@ -4,9 +4,10 @@ namespace Database\Factories;
 
 use App\Models\ArticleCategory;
 use App\Models\ArticleIndex;
-use App\Models\UserAccount;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
 
 class ArticlePostFactory extends Factory
 {
@@ -18,7 +19,7 @@ class ArticlePostFactory extends Factory
     public function definition()
     {
         $category = ArticleCategory::inRandomOrder()->first();
-        $user = UserAccount::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first();
 
         $title = $this->faker->sentence(mt_rand(2, 8));
         $string = Str::upper(Str::substr($title, 0, 1));
@@ -33,14 +34,14 @@ class ArticlePostFactory extends Factory
         $artikel = $image_1 . $paragraph_1 . $image_2 . $paragraph_2;
 
         return [
-            'id' => $this->faker->uuid3(),
-            'article_category_id' => $category->id,
-            'article_index_id' => $index->id,
-            'user_account_id' => $user->id,
+            'id' => strval(Uuid::uuid4()),
+            'article_category_id' => strval($category->id),
+            'article_index_id' => strval($index->id),
+            'user_id' => strval($user->id),
             'title' => $title,
             'body' => $artikel,
             'views' => $this->faker->numberBetween(0, 2000),
-            'status' => $this->faker->randomElement(['Tunggu', 'Terbit', 'Arsip'])
+            'status' => $this->faker->randomElement(['Terbit', 'Arsip'])
         ];
     }
 }

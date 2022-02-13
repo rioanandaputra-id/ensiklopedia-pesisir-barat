@@ -28,7 +28,7 @@ class BerandaController extends Controller
             $datas = ArticlePost::select('slug', 'title')->with([
                 'article_index:id,indexx',
                 'article_category:id,categoryy',
-                'user_account:id,fullname'
+                'user:id,name'
             ])
                 ->when($index, function ($query, $index) {
                     return $query->whereRelation('article_index', 'indexx', $index);

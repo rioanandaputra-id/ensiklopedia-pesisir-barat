@@ -1,5 +1,5 @@
 @extends('Layouts.Backend.master')
-@section('title', 'Halaman Artikel - '. Str::ucfirst(request()->status))
+@section('title', 'Halaman Artikel - ' . Str::ucfirst(request()->status))
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/Backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -20,10 +20,20 @@
                 <div class="col-sm-4">
                     <a href="{{ url('backend/article/add') }}" class="btn btn-success btn-sm mb-4"> <i
                             class="fa fa-plus-circle"></i> Tambah</a>
-                    <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
-                        Hapus</button>
-                    <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
-                            class="fa fa-check-circle"></i> Konfirmasi</button>
+
+                    @can('isContributor')
+                        @if (request()->status != 'arsip')
+                            <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
+                                Hapus</button>
+                        @endif
+                    @endcan
+
+                    @can('isAdministrator')
+                        <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
+                            Hapus</button>
+                        <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
+                                class="fa fa-check-circle"></i> Konfirmasi</button>
+                    @endcan
                 </div>
                 <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">
@@ -80,6 +90,7 @@
     <script src="{{ asset('assets/Backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
             $('#tbarticle').DataTable({
                 processing: true,
                 serverSide: true,
@@ -115,8 +126,8 @@
                         className: 'text-center',
                     },
                     {
-                        data: 'user_account',
-                        name: 'user_account.fullname',
+                        data: 'user',
+                        name: 'user.name',
                         className: 'text-center',
                     },
                     {
@@ -166,7 +177,7 @@
                         showCancelButton: true,
                         dangerMode: true,
                     }).then((willDelete) => {
-                        if (willDelete) {
+                        if (willDelete.isConfirmed) {
                             $.ajax({
                                 url: "{{ url('backend/article/delete') }}",
                                 type: "DELETE",
@@ -215,7 +226,6 @@
                         input: 'select',
                         inputOptions: {
                             'Terbit': 'Terbit',
-                            'Tunggu': 'Tunggu',
                             'Arsip': 'Arsip'
                         },
                         inputPlaceholder: '--pilih--',
@@ -224,7 +234,8 @@
                             return new Promise(function(resolve, reject) {
                                 if (value == '') {
                                     resolve(
-                                        'Anda harus memilih persetujuan status artikel');
+                                        'Anda harus memilih persetujuan status artikel'
+                                    );
                                 } else {
                                     resolve();
                                 }

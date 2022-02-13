@@ -9,12 +9,12 @@
     <div class="sidebar">
         <div class="user-panel mt-2 pb-2 mb-2 d-flex">
             <div class="image mt-1">
-                <img src="{{ asset('assets/Backend/dist/img/user2-160x160.jpg') }}" class="mt-2"
+                <img src="{{ (Auth::user()->document->uploaded == 1) ? url(Auth::user()->document->path) : Auth::user()->document->path }}" class="mt-2"
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ url('backend/profile') }}" class="d-block">Rio Ananda Putra</a>
-                <span class="d-block text-sm">Administrator</span>
+                <a href="{{ url('backend/profile') }}" class="d-block">{{ Auth::user()->name }}</a>
+                <span class="d-block text-sm">{{ Auth::user()->role }}</span>
             </div>
         </div>
 
@@ -40,6 +40,8 @@
                         </p>
                     </a>
                 </li>
+
+                @can('isAdministrator')
                 <li
                     class="nav-item {{ request()->is('backend/master/*') || request()->is('backend/master*') ? 'menu-open' : '' }}">
                     <a href="#"
@@ -74,6 +76,9 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+
+
                 <li
                     class="nav-item {{ request()->is('backend/article/*') || request()->is('backend/article*') ? 'menu-open' : '' }}">
                     <a href="#"
@@ -90,13 +95,6 @@
                                 class="nav-link {{ request('status') == 'terbit' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Terbit</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('backend/article?status=tunggu') }}"
-                                class="nav-link {{ request('status') == 'tunggu' ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Tunggu</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -128,16 +126,9 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ url('backend/gallery/photo?status=terbit') }}"
-                                        class="nav-link {{ request()->is('backend/gallery/photo')  && request('status') == 'terbit' ? 'active bg-secondary' : '' }}">
+                                        class="nav-link {{ request()->is('backend/gallery/photo') && request('status') == 'terbit' ? 'active bg-secondary' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Terbit</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('backend/gallery/photo?status=tunggu') }}"
-                                        class="nav-link {{ request()->is('backend/gallery/photo') && request('status') == 'tunggu' ? 'active bg-secondary' : '' }}">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Tunggu</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -166,13 +157,6 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('backend/gallery/video?status=tunggu') }}"
-                                        class="nav-link {{ request()->is('backend/gallery/video') && request('status') == 'tunggu' ? 'active bg-secondary' : '' }}">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Tunggu</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('backend/gallery/video?status=arsip') }}"
                                         class="nav-link {{ request()->is('backend/gallery/video') && request('status') == 'arsip' ? 'active bg-secondary' : '' }}">
                                         <i class="far fa-dot-circle nav-icon"></i>
@@ -193,7 +177,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('auth/logout') }}" class="nav-link">
+                    <a href="{{ url('backend/about') }}"
+                        class="nav-link {{ request()->is('backend/about') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-globe"></i>
                         <p>
                             Tentang
@@ -201,12 +186,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('auth/logout') }}" class="nav-link">
+                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
                         <i class="nav-icon fas fa-power-off"></i>
                         <p>
                             Log Out
                         </p>
                     </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+
                 </li>
             </ul>
         </nav>

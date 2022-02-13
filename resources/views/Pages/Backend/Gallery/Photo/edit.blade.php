@@ -383,60 +383,6 @@
                     });
                 }
             });
-
-
-            // Swal.fire({
-            //     title: 'Konfirmasi persetujuan status artikel',
-            //     input: 'select',
-            //     inputOptions: {
-            //         'Terbit': 'Terbit',
-            //         'Tunggu': 'Tunggu',
-            //         'Arsip': 'Arsip'
-            //     },
-            //     inputPlaceholder: '--pilih--',
-            //     showCancelButton: true,
-            //     inputValidator: function(value) {
-            //         return new Promise(function(resolve, reject) {
-            //             if (value == '') {
-            //                 resolve(
-            //                     'Anda harus memilih persetujuan status artikel');
-            //             } else {
-            //                 resolve();
-            //             }
-            //         });
-            //     }
-            // }).then(function(result) {
-            //     if (result.isConfirmed) {
-            //         $.ajax({
-            //             url: "{{ url('backend/gallery/upload') }}",
-            //             type: "PUT",
-            //             data: {
-            //                 '_token': "{{ csrf_token() }}",
-            //                 'id': "{{ $albums->id }}",
-            //                 'type': 'image',
-            //                 'uploaded': 0,
-            //                 'url': result.value
-            //             },
-            //             success: function(data) {
-            //                 Swal.fire({
-            //                     title: "Berhasil!",
-            //                     text: "Data berhasil dikonfirmasi",
-            //                     icon: "success",
-            //                     button: "Tutup",
-            //                 });
-            //                 $('#tbarticle').DataTable().ajax.reload();
-            //             },
-            //             error: function(data) {
-            //                 Swal.fire({
-            //                     title: "Gagal!",
-            //                     text: "Data gagal dikonfirmasi",
-            //                     icon: "error",
-            //                     button: "Tutup",
-            //                 });
-            //             }
-            //         });
-            //     }
-            // });
         });
     </script>
 @stop

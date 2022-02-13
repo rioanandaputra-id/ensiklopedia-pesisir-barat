@@ -33,8 +33,8 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="fullname">Nama Lengkap: <i class="text-danger">*</i></label></label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nama Lengkap" value="{{ $users->fullname }}">
+                            <label for="name">Nama Lengkap: <i class="text-danger">*</i></label></label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" value="{{ $users->name }}">
                         </div>
                         <div class="form-group">
                             <label for="username">Username: <i class="text-danger">*</i></label></label>
@@ -48,6 +48,8 @@
                             <label for="password">Password: <i class="text-danger">*</i></label></label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="********">
                         </div>
+
+                        @can('isAdministrator')
                         <div class="form-group">
                             <label for="username">Status: <i class="text-danger">*</i></label></label>
                             <select class="form-control" id="active" name="active">
@@ -58,13 +60,14 @@
                         </div>
                         <div class="form-group">
                             <label for="username">Role Pengguna: <i class="text-danger">*</i></label></label>
-                            <select class="form-control" id="role_id" name="role_id">
+                            <select class="form-control" id="role" name="role">
                                 <option value="">Pilih Role</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}" {{ ($users->role_id == $role->id) ? 'selected' : ''}}>{{ $role->role }}</option>
-                                @endforeach
+                                <option value="Administrator" {{ ($users->role == 'Administrator') ? 'selected' : ''}}>Administrator</option>
+                                <option value="Contributor" {{ ($users->role == 'Contributor') ? 'selected' : ''}}>Contributor</option>
                             </select>
                         </div>
+                        @endcan
+
                         <div class="form-group">
                             <label for="file">Foto Pengguna</label>
                             <div class="input-group">
@@ -75,8 +78,8 @@
                                             class="fa fa-link"></i> Via URL</button>
                                 </div>
                                 <div class="input-group-append">
-                                    <img src="{{ url($documents->document->path) }}"
-                                        alt="Foto Pengguna" class="img-thumbnail" id="imgPreview">
+                                    <img src="{{ url($documents->path) }}"
+                                        alt="Foto Pengguna" class="img-thumbnail" id="imgPreview" width="300">
                                 </div>
                             </div>
                         </div>
