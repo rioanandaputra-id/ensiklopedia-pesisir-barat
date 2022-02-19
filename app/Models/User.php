@@ -44,6 +44,16 @@ class User extends Authenticatable
     	return $this->hasMany(GalleryAlbum::class, 'user_id', 'id');
     }
 
+    public function user_created_activity()
+    {
+    	return $this->hasMany(UserActivity::class, 'id', 'user_created');
+    }
+
+    public function user_target_activity()
+    {
+        return $this->hasMany(UserActivity::class, 'id', 'user_target');
+    }
+
     public function document()
     {
         return $this->belongsTo(Document::class, 'document_id', 'id');

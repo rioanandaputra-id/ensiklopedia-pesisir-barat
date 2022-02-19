@@ -17,6 +17,8 @@ Route::group([
 
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backend', 'middleware' => 'auth'], function () {
     Route::get('/', 'DasboardController@page_index');
+    Route::get('/read_visitor', 'DasboardController@read_visitor');
+    Route::get('/read_activity', 'DasboardController@read_activity');
     Route::get('profile', 'UserController@page_profile');
 
     Route::prefix('master')->group(function () {

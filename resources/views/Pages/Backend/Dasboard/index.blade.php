@@ -2,6 +2,10 @@
 @section('title', 'Halaman Beranda')
 
 @section('css')
+<link rel="stylesheet" href="{{ asset('assets/Backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet"
+    href="{{ asset('assets/Backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/Backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @stop
 
 @section('content')
@@ -142,7 +146,7 @@
                                 <div class="col-sm-3 col-6">
                                     <div class="description-block border-right">
                                         <span class="description-percentage text-primary">
-                                            17x dilihat</span>
+                                            {{ $visitor['article'] }}x dilihat</span>
                                         <h5 class="description-header">Halaman</h5>
                                         <span class="description-text">Artikel</span>
                                     </div>
@@ -151,7 +155,7 @@
                                 <div class="col-sm-3 col-6">
                                     <div class="description-block border-right">
                                         <span class="description-percentage text-danger">
-                                            0x dilihat</span>
+                                            {{ $visitor['photo'] }}x dilihat</span>
                                         <h5 class="description-header">Halaman</h5>
                                         <span class="description-text">Gallery Foto</span>
                                     </div>
@@ -160,7 +164,7 @@
                                 <div class="col-sm-3 col-6">
                                     <div class="description-block border-right">
                                         <span class="description-percentage text-success">
-                                            20x dilihat</span>
+                                            {{ $visitor['video'] }}x dilihat</span>
                                         <h5 class="description-header">Halaman</h5>
                                         <span class="description-text">Gallery Video</span>
                                     </div>
@@ -169,7 +173,7 @@
                                 <div class="col-sm-3 col-6">
                                     <div class="description-block">
                                         <span class="description-percentage text-warning">
-                                            18x dilihat</span>
+                                            {{ $visitor['other'] }}x dilihat</span>
                                         <h5 class="description-header">Halaman</h5>
                                         <span class="description-text">Lainnya</span>
                                     </div>
@@ -188,10 +192,9 @@
                         <div class="card-header border-transparent">
                             <h3 class="card-title">Detail Kunjungan Website</h3>
                         </div>
-
-                        <div class="card-body p-0">
+                        <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table m-0">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" id="visitors" style="width: 100%">
                                     <thead class="bg-success">
                                         <tr>
                                             <th>ALAMAT IP</th>
@@ -200,42 +203,19 @@
                                             <th>WAKTU</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tfoot class="bg-green">
                                         <tr>
-                                            <td>192.168.03.12</td>
-                                            <td><span class="badge badge-primary">ARTIKEL</span></td>
-                                            <td style="max-width: 300px"><a href="https://ensiklopedia-pesbar.test/article/id-libero-veniam-et-culpa-animi-cumque-architecto-quia-cupiditate" target="_blank">/article/id-libero-veniam-et-culpa-animi-cumque-...</a></td>
-                                            <td>19-02-2022 11:24:04</td>
+                                            <th>ALAMAT IP</th>
+                                            <th>KATEGORI</th>
+                                            <th>HALAMAN</th>
+                                            <th>WAKTU</th>
                                         </tr>
-                                        <tr>
-                                            <td>192.99.45.22</td>
-                                            <td><span class="badge badge-danger">GALLERY FOTO</span></td>
-                                            <td style="max-width: 300px"><a href="https://ensiklopedia-pesbar.test/gallery/photo" target="_blank">/gallery/photo</a></td>
-                                            <td>19-02-2022 11:24:04</td>
-                                        </tr>
-                                        <tr>
-                                            <td>192.85.19.21</td>
-                                            <td><span class="badge badge-success">GALLERY VIDEO</span></td>
-                                            <td style="max-width: 300px"><a href="https://ensiklopedia-pesbar.test/gallery/video" target="_blank">/gallery/video</a></td>
-                                            <td>19-02-2022 11:24:04</td>
-                                        </tr>
-                                        <tr>
-                                            <td>192.22.11.78</td>
-                                            <td><span class="badge badge-warning">LAINNYA</span></td>
-                                            <td style="max-width: 300px"><a href="https://ensiklopedia-pesbar.test/about" target="_blank">/about</a></td>
-                                            <td>19-02-2022 11:24:04</td>
-                                        </tr>
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                             </div>
-
                         </div>
-
                         <div class="card-footer clearfix">
-                            {{-- <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a> --}}
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -246,38 +226,30 @@
                         <div class="card-header border-transparent">
                             <h3 class="card-title">Aktivitas Pengguna Sistem</h3>
                         </div>
-
-                        <div class="card-body p-0">
+                        <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table m-0">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" id="activitys" style="width: 100%">
                                     <thead class="bg-success">
                                         <tr>
                                             <th>PENGGUNA</th>
                                             <th>AKTIFITAS</th>
                                             <th>WAKTU</th>
                                             <th>TARGET</th>
-                                            <th>LEVEL</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tfoot class="bg-green">
                                         <tr>
-                                            <td>Administrtor</td>
-                                            <td><a href="https://ensiklopedia-pesbar.test/backend/article?status=terbit">Konfirmasi Terbit Artikel</a></td>
-                                            <td>19-02-2022 11:24:04</td>
-                                            <td>Contributor</td>
-                                            <td>Notif Penting</td>
+                                            <th>PENGGUNA</th>
+                                            <th>AKTIFITAS</th>
+                                            <th>WAKTU</th>
+                                            <th>TARGET</th>
                                         </tr>
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                             </div>
-
                         </div>
-
                         <div class="card-footer clearfix">
-                            {{-- <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a> --}}
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -289,4 +261,115 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('assets/Backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/Backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/Backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/Backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#visitors').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "{{ url('backend/read_visitor') }}",
+                    type: 'GET',
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                    },
+                },
+                columns: [
+                    // {
+                    //     data: 'checkbox',
+                    //     name: 'checkbox',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     className: 'text-center',
+                    // },
+                    {
+                        data: 'ip_address',
+                        name: 'ip_address',
+                        className: 'text-left',
+                    },
+                    {
+                        data: 'category',
+                        name: 'category',
+                        className: 'text-left',
+                    },
+                    {
+                        data: 'url',
+                        name: 'url',
+                        className: 'text-left',
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        className: 'text-left',
+                    },
+                    // {
+                    //     data: 'action',
+                    //     name: 'action',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     className: 'text-center',
+                    // },
+                ],
+                order: [
+                    [3, "desc"]
+                ],
+            });
+
+            $('#activitys').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "{{ url('backend/read_activity') }}",
+                    type: 'GET',
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                    },
+                },
+                columns: [
+                    // {
+                    //     data: 'checkbox',
+                    //     name: 'checkbox',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     className: 'text-center',
+                    // },
+                    {
+                        data: 'user_created[0].username',
+                        name: 'username',
+                        className: 'text-left',
+                    },
+                    {
+                        data: 'activity',
+                        name: 'activity',
+                        className: 'text-left',
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at',
+                        className: 'text-left',
+                    },
+                    {
+                        data: 'user_target[0].username',
+                        name: 'username',
+                        className: 'text-left',
+                    },
+                    // {
+                    //     data: 'action',
+                    //     name: 'action',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     className: 'text-center',
+                    // },
+                ],
+                order: [
+                    [2, "desc"]
+                ],
+            });
+        });
+    </script>
 @stop
