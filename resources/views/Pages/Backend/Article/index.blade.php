@@ -14,28 +14,32 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
-                    <h5>@yield('title')</h5>
-                </div>
-                <div class="col-sm-4">
-                    <a href="{{ url('backend/article/add') }}" class="btn btn-success btn-sm mb-4"> <i
-                            class="fa fa-plus-circle"></i> Tambah</a>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <h5>@yield('title')</h5>
+                        <div class="ml-3">
+                            <a href="{{ url('backend/article/add') }}" class="btn btn-success btn-sm mb-4"> <i
+                                    class="fa fa-plus-circle"></i> Tambah</a>
 
-                    @can('isContributor')
-                        @if (request()->status != 'arsip')
-                            <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
-                                Hapus</button>
-                        @endif
-                    @endcan
+                            @can('isContributor')
+                                @if (request()->status != 'arsip')
+                                    <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i
+                                            class="fa fa-trash"></i>
+                                        Hapus</button>
+                                @endif
+                            @endcan
 
-                    @can('isAdministrator')
-                        <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
-                            Hapus</button>
-                        <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
-                                class="fa fa-check-circle"></i> Konfirmasi</button>
-                    @endcan
+                            @can('isAdministrator')
+                                <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i
+                                        class="fa fa-trash"></i>
+                                    Hapus</button>
+                                <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
+                                        class="fa fa-check-circle"></i> Konfirmasi</button>
+                            @endcan
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('backend') }}">Beranda</a></li>
                         <li class="breadcrumb-item active">@yield('title')</li>
@@ -48,9 +52,13 @@
     @include('Layouts.Backend.alert')
 
     <section class="content">
-        <div class="card">
+        <div class="card card-outline card-primary">
             <div class="card-body">
-                <div class="table-responsive">
+                <p>Setiap Anda menambahkan artikel baru atau melakukan perubahan pada artikel status terbit akan dipindahkan
+                    ke daftar artikel arsip. Administrator akan memvalidasi artikel Anda, jika layak dan tidak melanggar
+                    akan disetujui dan dipindahkan ke daftar artikel terbit.</p>
+                <hr>
+                <div class="table-responsive mt-3">
                     <table class="table table-bordered table-hover dataTable dtr-inline" id="tbarticle" style="width: 100%">
                         <thead class="bg-green">
                             <tr>

@@ -25,7 +25,7 @@ class GalleryAlbum extends Model
 
     public function galery_document ()
     {
-        return $this->hasMany(GalleryDocument::class, 'album_id', 'id');
+        return $this->hasMany(GalleryDocument::class, 'gallery_album_id', 'id');
     }
 
     public function user ()

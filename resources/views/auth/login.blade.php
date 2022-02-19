@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('Layouts.Frontend.master')
+@section('title', 'Login | Ensiklopedia Pesisir Barat')
+
+@section('css')
+@stop
 
 @section('content')
 <div class="container">
@@ -71,3 +75,6 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+@stop

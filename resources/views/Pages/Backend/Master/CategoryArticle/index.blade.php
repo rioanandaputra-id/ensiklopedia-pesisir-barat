@@ -13,15 +13,19 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
-                    <h5>@yield('title')</h5>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <h5>@yield('title')</h5>
+                        <div class="ml-3">
+                            <button id="add" class="btn btn-success btn-sm mb-4"> <i class="fa fa-plus-circle"></i>
+                                Tambah</button>
+                            <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i
+                                    class="fa fa-trash"></i>
+                                Hapus</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <button id="add" class="btn btn-success btn-sm mb-4"> <i class="fa fa-plus-circle"></i> Tambah</button>
-                    <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
-                        Hapus</button>
-                </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('backend') }}">Beranda</a></li>
                         <li class="breadcrumb-item active">@yield('title')</li>

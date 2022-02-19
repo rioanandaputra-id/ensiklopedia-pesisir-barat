@@ -14,18 +14,21 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
-                    <h5>@yield('title')</h5>
+                <div class="col-sm-7">
+                    <div class="row">
+                        <h5>@yield('title')</h5>
+                        <div class="ml-3">
+                            <button id="add" class="btn btn-success btn-sm mb-4"> <i class="fa fa-plus-circle"></i>
+                                Tambah</button>
+                            <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i
+                                    class="fa fa-trash"></i>
+                                Hapus</button>
+                            <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
+                                    class="fa fa-check-circle"></i> Konfirmasi</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <button id="add" class="btn btn-success btn-sm mb-4"> <i
-                            class="fa fa-plus-circle"></i> Tambah</button>
-                    <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
-                        Hapus</button>
-                    <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
-                            class="fa fa-check-circle"></i> Konfirmasi</button>
-                </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('backend') }}">Beranda</a></li>
                         <li class="breadcrumb-item active">@yield('title')</li>
@@ -40,7 +43,11 @@
     <section class="content">
         <div class="card">
             <div class="card-body">
-                <div class="table-responsive">
+                <p>Setiap Anda menambahkan album foto baru atau melakukan perubahan pada album foto status terbit akan dipindahkan
+                    ke daftar album arsip. Administrator akan memvalidasi album Anda, jika layak dan tidak melanggar
+                    akan disetujui dan dipindahkan ke daftar album terbit.</p>
+                <hr>
+                <div class="table-responsive mt-3">
                     <table class="table table-bordered table-hover dataTable dtr-inline" id="tbgalleryphoto"
                         style="width: 100%">
                         <thead class="bg-green">
@@ -168,7 +175,8 @@
                             return new Promise(function(resolve, reject) {
                                 if (value == '') {
                                     resolve(
-                                        'Anda harus memilih persetujuan status gallery album foto');
+                                        'Anda harus memilih persetujuan status gallery album foto'
+                                        );
                                 } else {
                                     resolve();
                                 }

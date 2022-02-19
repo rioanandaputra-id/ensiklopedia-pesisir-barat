@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('Layouts.Frontend.master')
+@section('title', 'Verifikasi | Ensiklopedia Pesisir Barat')
 
-@section('content')
+@section('css')
+@stop
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -26,3 +28,7 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+@stop
+

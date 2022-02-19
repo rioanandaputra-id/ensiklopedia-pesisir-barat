@@ -14,19 +14,22 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4">
-                    <h5>@yield('title')</h5>
+                <div class="col-sm-7">
+                    <div class="row">
+                        <h5>@yield('title')</h5>
+                        <div class="ml-3">
+                            <a href="{{ url('backend/master/user/add') }}" class="btn btn-success btn-sm mb-4"> <i
+                                    class="fa fa-plus-circle"></i>
+                                Tambah</a>
+                            <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i
+                                    class="fa fa-trash"></i>
+                                Hapus</button>
+                            <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
+                                    class="fa fa-check-circle"></i> Konfirmasi</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <a href="{{ url('backend/master/user/add') }}" class="btn btn-success btn-sm mb-4"> <i
-                            class="fa fa-plus-circle"></i>
-                        Tambah</a>
-                    <button type="button" id="delete" class="btn btn-danger btn-sm mb-4"> <i class="fa fa-trash"></i>
-                        Hapus</button>
-                    <button type="button" id="update_status" class="btn bg-purple btn-sm mb-4"> <i
-                            class="fa fa-check-circle"></i> Konfirmasi</button>
-                </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('backend') }}">Beranda</a></li>
                         <li class="breadcrumb-item active">@yield('title')</li>

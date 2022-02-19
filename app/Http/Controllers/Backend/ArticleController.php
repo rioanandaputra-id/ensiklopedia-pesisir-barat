@@ -108,9 +108,16 @@ class ArticleController extends Controller
                     return date('d-m-Y H:i:s', strtotime($model->updated_at));
                 })
                 ->addColumn('action', function ($model) {
-                    return '<a href="./article/edit?slug=' . $model->slug . '" class="btn btn-warning btn-sm text-white"><i class="fa fa-edit"></i></a>
-                    <a href="../../article/' . $model->slug . '" target="_blank" class="btn btn-primary btn-sm "><i class="fa fa-link"></i></a>
-            ';
+                    $btnedit = '<a href="./article/edit?slug=' . $model->slug . '" class="btn btn-warning btn-sm text-white"><i class="fa fa-edit"></i></a>';
+                    $btnview = '<a href="../../article/' . $model->slug . '" target="_blank" class="btn btn-primary btn-sm "><i class="fa fa-link"></i></a>';
+
+                    if($model->status != 'Arsip'){
+                        return $btnedit . ' ' . $btnview;
+                    } else {
+                        return $btnedit;
+                    }
+
+
                 })->addColumn('checkbox', function ($model) {
                     return '<input type="checkbox" class="checkbox_item" name="checkbox_item[]" value="' . $model->slug . '">';
                 })->rawColumns(['action', 'checkbox'])

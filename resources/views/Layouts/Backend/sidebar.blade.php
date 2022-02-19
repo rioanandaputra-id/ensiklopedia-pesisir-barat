@@ -92,14 +92,14 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ url('backend/article?status=terbit') }}"
-                                class="nav-link {{ request('status') == 'terbit' ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('backend/article') && request('status') == 'terbit' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Terbit</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('backend/article?status=arsip') }}"
-                                class="nav-link {{ request('status') == 'arsip' ? 'active' : '' }}">
+                                class="nav-link {{ request()->is('backend/article') && request('status') == 'arsip' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Arsip</p>
                             </a>
