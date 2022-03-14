@@ -7,7 +7,7 @@
 
 @section('content')
 
-<div class="row" style="margin-bottom: 100px;">
+<div class="row" style="margin-bottom: 20px;">
     <div class="col">
         <div class="bg-white">
             <h3><a href="{{$articles->slug}}">{{$articles->title}}</a></h3>
@@ -26,7 +26,15 @@
     </div>
 </div>
 
-<div id="disqus_thread"></div>
+<div class="row">
+    <div class="col">
+        <h2 style="color: white;">KOMENTAR ARTIKEL</h2>
+        <div id="disqus_thread" class="bg-white"></div>
+    </div>
+</div>
+
+
+
 <script>
     /**
     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.

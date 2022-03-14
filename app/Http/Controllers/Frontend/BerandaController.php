@@ -25,7 +25,7 @@ class BerandaController extends Controller
         // jika request search, category dan index tidak kosong ambil data article dari database
         if (!empty($search) || !empty($category) || !empty($index)) {
 
-            $datas = ArticlePost::select('slug', 'title')->with([
+            $datas = ArticlePost::select('slug', 'title', 'body')->with([
                 'article_index:id,indexx',
                 'article_category:id,categoryy',
                 'user:id,name'

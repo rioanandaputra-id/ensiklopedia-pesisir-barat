@@ -13,10 +13,11 @@
             <div class="nav-collapse collapse">
                 <ul class="nav nav-pills pull-right">
                     <li><a href="{{url('/')}}" style="{{ (request()->is('/')) ? 'color:yellow;' : '' }}">BERANDA</a></li>
-                    <li><a href="{{url('/gallery/photo')}}" style="{{ (request()->is('gallery/photo')) ? 'color:yellow;' : '' }}">GALERI FOTO</a></li>
-                    <li><a href="{{url('/gallery/video')}}" style="{{ (request()->is('gallery/video')) ? 'color:yellow;' : '' }}">GALERI VIDEO</a></li>
+                    {{-- <li><a href="{{url('/gallery/photo')}}" style="{{ (request()->is('gallery/photo')) ? 'color:yellow;' : '' }}">GALERI FOTO</a></li> --}}
+                    {{-- <li><a href="{{url('/gallery/video')}}" style="{{ (request()->is('gallery/video')) ? 'color:yellow;' : '' }}">GALERI VIDEO</a></li> --}}
                     <li><a href="{{url('/login')}}" style="{{ (request()->is('auth/login')) ? 'color:yellow;' : '' }}">TULIS ARTIKEL</a></li>
                     <li><a href="{{url('/about')}}" style="{{ (request()->is('about')) ? 'color:yellow;' : '' }}">TENTANG</a></li>
+                    <li><a href="{{url('/penyusun')}}" style="{{ (request()->is('about')) ? 'color:yellow;' : '' }}">PENYUSUN</a></li>
                 </ul>
             </div>
         </div>

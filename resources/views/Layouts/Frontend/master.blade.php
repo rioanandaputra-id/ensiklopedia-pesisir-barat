@@ -60,7 +60,7 @@
     <script type="text/javascript" src="{{ asset('assets/Frontend/js/jquery.colorbox-min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/Frontend/js/jquery.jcarousel.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/Frontend/js/supersized.3.2.7.min.js') }}"></script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         jQuery(function ($) {
             $.supersized({
                 slides: [{
@@ -78,7 +78,7 @@
                 ]
             });
         });
-    </script>
+    </script> --}}
     @yield('js')
 
 </body>

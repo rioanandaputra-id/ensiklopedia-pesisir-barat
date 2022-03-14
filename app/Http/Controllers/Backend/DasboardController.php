@@ -8,9 +8,12 @@ use App\Models\GalleryAlbum;
 use App\Models\User;
 use App\Models\UserActivity;
 use App\Models\Visitor;
+use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
+use Chartisan\PHP\Chartisan;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
+use Illuminate\Support\Facades\DB;
 
 class DasboardController extends Controller
 {
@@ -61,7 +64,6 @@ class DasboardController extends Controller
         $video['arsip']         = $mAlbum->where($arsip)->where($typeVideo)->with($rDocument)->count();
         $user['active']         = $mUser->where($active)->count();
         $user['nonActive']      = $mUser->where($noActive)->count();
-
         $visitor['article']     = $mVisitor->where($articleVisitor)->count();
         $visitor['photo']       = $mVisitor->where($photoVisitor)->count();
         $visitor['video']       = $mVisitor->where($videoVisitor)->count();
@@ -80,15 +82,38 @@ class DasboardController extends Controller
 
     public function read_activity()
     {
-        // if ($this->request->ajax()) {
+        if ($this->request->ajax()) {
             $mUserActivity          = new UserActivity();
             $rUserC                 = 'user_created';
             $rUserT                 = 'user_target';
             return                    FacadesDataTables::eloquent($mUserActivity->with($rUserC)->with($rUserT))
-            ->startsWithSearch()
-            ->toJson();
+                ->toJson();
+        }
+    }
+
+    public function chart_visitor()
+    {
+        // $mVisitor               = new Visitor();
+        // $articleVisitor         = ['category' => 'artikel'];
+        // $photoVisitor           = ['category' => 'galleri foto'];
+        // $videoVisitor           = ['category' => 'galleri vidio'];
+        // $otherVisitor           = ['category' => 'Lainnya'];
+        // $dateFrom               = $this->request->input('dateFrom');
+        // $dateTo                 = $this->request->input('dateTo');
 
 
-        // }
+        $visitor = Visitor::select(DB::raw("COUNT(*) as count"))
+        ->whereYear('created_at', date('Y'))
+        ->groupBy(DB::raw("Day(created_at)"))
+        ->pluck('count');
+
+
+
+        // $visitor['article']     = $mVisitor->where($articleVisitor)->WhereBetween('created_at', [$dateFrom, $dateTo])->count();
+        // $visitor['photo']       = $mVisitor->where($photoVisitor)->WhereBetween('created_at',   [$dateFrom, $dateTo])->count();
+        // $visitor['video']       = $mVisitor->where($videoVisitor)->WhereBetween('created_at',   [$dateFrom, $dateTo])->count();
+        // $visitor['other']       = $mVisitor->where($otherVisitor)->WhereBetween('created_at',   [$dateFrom, $dateTo])->count();
+
+        return response()->json($visitor);
     }
 }

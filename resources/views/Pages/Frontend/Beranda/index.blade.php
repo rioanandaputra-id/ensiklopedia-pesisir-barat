@@ -79,7 +79,12 @@
                             <td >
                                 <ol type="1" start="1">
                                     @foreach ($datas as $data)
-                                        <li><a href="article/{{ $data->slug }}">{{ $data->title }}</a></li>
+                                        <li><a href="article/{{ $data->slug }}">{{ $data->title }}</a>
+                                            @php
+                                                $string = strip_tags($data->body);
+                                                echo '<br>'.Str::substr($string, 0, 400).'[...]';
+                                            @endphp
+                                        </li>
                                     @endforeach
                                 </ol>
                             </td>

@@ -19,6 +19,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backen
     Route::get('/', 'DasboardController@page_index');
     Route::get('/read_visitor', 'DasboardController@read_visitor');
     Route::get('/read_activity', 'DasboardController@read_activity');
+    Route::get('/chart_visitor', 'DasboardController@chart_visitor');
     Route::get('profile', 'UserController@page_profile');
 
     Route::prefix('master')->group(function () {

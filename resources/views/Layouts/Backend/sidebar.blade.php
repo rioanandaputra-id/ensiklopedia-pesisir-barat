@@ -106,7 +106,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item {{ request()->is('backend/gallery/*') ? 'menu-open' : '' }}">
+                {{-- <li class="nav-item {{ request()->is('backend/gallery/*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->is('backend/gallery/*') ? 'active' : '' }}">
                         <i class="nav-icon far fa-image"></i>
                         <p>
@@ -166,7 +166,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ url('backend/profile') }}"
                         class="nav-link {{ request()->is('backend/profile') ? 'active' : '' }}">
