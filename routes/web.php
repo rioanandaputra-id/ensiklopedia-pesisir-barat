@@ -12,7 +12,8 @@ Route::group([
         Route::get('article/{slug}', 'ArticleController@page_index');
         Route::get('gallery/photo', 'GalleryController@page_photo');
         Route::get('gallery/video', 'GalleryController@page_video');
-        Route::get('about', 'AboutController@page_index');
+        Route::get('about', 'PageWebController@about');
+        Route::get('penyusun', 'PageWebController@penyusun');
 });
 
 Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backend', 'middleware' => 'auth'], function () {
