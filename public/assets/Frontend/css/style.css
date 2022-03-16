@@ -1062,7 +1062,7 @@ h4.title {
 	left: 0;
 	right: 0;
 	display: block;
-	background-color: rgba(0,0,0,0.9);
+	background-color: #000000;
 	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#000000,endColorstr=#000000);
 	zoom:1;
 	font-size: 12px;

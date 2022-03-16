@@ -17,10 +17,12 @@
 
             <div class="simply">
                 <form name="advSearchForm" id="simplySearchForm" action="" method="get" class="form-search">
-                    <div class="input-append">
-                        <input type="text" name="search" id="keyword" value="{{request('search')}}" placeholder="Kata kunci" lang="id_ID" x-webkit-speech="x-webkit-speech" class="input-xxlarge search-query">
-                        <button type="submit" class="btn">Pencarian</button>
-                    </div>
+                    <input type="text" class="form-control input-xxlarge" name="search" id="keyword" value="{{request('search')}}" placeholder="Cari disini...">
+                    <button type="submit" class="btn btn-light">Cari</button>
+                    {{-- <div class="input-append"> --}}
+                        {{-- <input type="text" name="search" id="keyword" value="{{request('search')}}" placeholder="Kata kunci" lang="id_ID" x-webkit-speech="x-webkit-speech" class="input-xxlarge search-query"> --}}
+                        {{-- <button type="submit" class="btn">Pencarian</button> --}}
+                    {{-- </div> --}}
                 </form>
             </div>
 
@@ -84,7 +86,8 @@
                                                 $string = strip_tags($data->body);
                                                 echo '<br>'.Str::substr($string, 0, 400).'[...]';
                                             @endphp
-                                        </li>
+
+                                        </li><br>
                                     @endforeach
                                 </ol>
                             </td>
