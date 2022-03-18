@@ -13,14 +13,14 @@ class CreateGalleryAlbumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gallery_albums', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('user_id');
-            $table->string('album', 150);
-            $table->enum('type', ['image', 'video'])->default('image');
-            $table->enum('status', ['Terbit', 'Arsip'])->default('Arsip');
-            $table->timestamps();
-        });
+        // Schema::create('gallery_albums', function (Blueprint $table) {
+        //     $table->uuid('id')->primary();
+        //     $table->foreignUuid('user_id');
+        //     $table->string('album', 150);
+        //     $table->enum('type', ['image', 'video'])->default('image');
+        //     $table->enum('status', ['Terbit', 'Arsip'])->default('Arsip');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateGalleryAlbumsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gallery_albums');
+        // Schema::dropIfExists('gallery_albums');
     }
 }

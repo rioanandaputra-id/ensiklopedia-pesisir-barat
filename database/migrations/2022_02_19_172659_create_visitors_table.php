@@ -16,7 +16,7 @@ class CreateVisitorsTable extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('ip_address', 45)->nullable();
-            $table->string('category', 15);
+            // $table->string('category', 15);
             $table->string('url');
             $table->timestamp('created_at')->useCurrent();
         });

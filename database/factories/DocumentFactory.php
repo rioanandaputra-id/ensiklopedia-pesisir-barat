@@ -14,12 +14,12 @@ class DocumentFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'id' => env('DOCUMENT_ID'),
-            'title' => $this->faker->sentence(2, true),
-            'path' => $this->faker->imageUrl(640, 480, 'animals', true),
-            'type' => 'image',
-            'uploaded' => 0
-        ];
+        // return [
+        //     'id' => env('DOCUMENT_ID'),
+        //     'title' => $this->faker->sentence(2, true),
+        //     'path' => $this->faker->imageUrl(640, 480, 'animals', true),
+        //     'type' => 'image',
+        //     'uploaded' => 0
+        // ];
     }
 }

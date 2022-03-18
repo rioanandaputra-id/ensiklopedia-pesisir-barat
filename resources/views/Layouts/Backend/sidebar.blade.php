@@ -9,7 +9,7 @@
     <div class="sidebar">
         <div class="user-panel mt-2 pb-2 mb-2 d-flex">
             <div class="image mt-1">
-                <img src="{{ (Auth::user()->document->uploaded == 1) ? url(Auth::user()->document->path) : Auth::user()->document->path }}" class="mt-2"
+                <img src="{{Auth::user()->user_image}}" class="mt-2"
                     alt="User Image">
             </div>
             <div class="info">
@@ -181,7 +181,16 @@
                         class="nav-link {{ request()->is('backend/about') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-globe"></i>
                         <p>
-                            Tentang
+                            Tentang Kami
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('backend/penyusun') }}"
+                        class="nav-link {{ request()->is('backend/penyusun') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Tim Penyusun
                         </p>
                     </a>
                 </li>

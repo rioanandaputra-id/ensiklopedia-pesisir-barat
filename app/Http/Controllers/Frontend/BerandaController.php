@@ -7,10 +7,25 @@ use Illuminate\Http\Request;
 use App\Models\ArticleCategory;
 use App\Models\ArticleIndex;
 use App\Models\ArticlePost;
+use App\Models\Visitor;
+use Ramsey\Uuid\Uuid;
 
 class BerandaController extends Controller
 {
-    public function page_index(Request $request)
+
+    protected $request;
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+        Visitor::create([
+            'id' => Uuid::uuid4(),
+            'ip_address' => $this->request->ip(),
+            'url' => $this->request->fullUrl(),
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+    }
+
+    public function page_index()
     {
 
         // ambil data refrensi category dan index yang tersedia pada database
@@ -18,9 +33,9 @@ class BerandaController extends Controller
         $indexs = ArticleIndex::orderBy('indexx', 'asc')->get();
 
         $datas = [];
-        $index = $request->index;
-        $category = $request->category;
-        $search = $request->search;
+        $index = $this->request->index;
+        $category = $this->request->category;
+        $search = $this->request->search;
 
         // jika request search, category dan index tidak kosong ambil data article dari database
         if (!empty($search) || !empty($category) || !empty($index)) {

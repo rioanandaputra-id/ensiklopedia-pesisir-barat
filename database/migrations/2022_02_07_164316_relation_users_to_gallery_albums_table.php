@@ -13,9 +13,9 @@ class RelationUsersToGalleryAlbumsTable extends Migration
      */
     public function up()
     {
-        Schema::table('gallery_albums', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
+        // Schema::table('gallery_albums', function (Blueprint $table) {
+        //     $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        // });
     }
 
     /**
@@ -25,8 +25,8 @@ class RelationUsersToGalleryAlbumsTable extends Migration
      */
     public function down()
     {
-        Schema::table('gallery_albums', function (Blueprint $table) {
-            $table->dropForeign('gallery_albums_user_id_foreign');
-        });
+        // Schema::table('gallery_albums', function (Blueprint $table) {
+        //     $table->dropForeign('gallery_albums_user_id_foreign');
+        // });
     }
 }

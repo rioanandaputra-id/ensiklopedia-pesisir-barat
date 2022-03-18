@@ -13,9 +13,9 @@ class RelationDocumentsToGalleryDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('gallery_documents', function (Blueprint $table) {
-            $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
-        });
+        // Schema::table('gallery_documents', function (Blueprint $table) {
+        //     $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
+        // });
     }
 
     /**
@@ -25,8 +25,8 @@ class RelationDocumentsToGalleryDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('gallery_documents', function (Blueprint $table) {
-            $table->dropForeign('gallery_documents_document_id_foreign');
-        });
+        // Schema::table('gallery_documents', function (Blueprint $table) {
+        //     $table->dropForeign('gallery_documents_document_id_foreign');
+        // });
     }
 }

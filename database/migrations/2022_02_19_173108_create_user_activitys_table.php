@@ -13,14 +13,14 @@ class CreateUserActivitysTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_activitys', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('ip_address', 45)->nullable();
-            $table->uuid('user_created');
-            $table->string('activity');
-            $table->timestamp('created_at')->useCurrent();
-            $table->uuid('user_target');
-        });
+        // Schema::create('user_activitys', function (Blueprint $table) {
+        //     $table->uuid('id')->primary();
+        //     $table->string('ip_address', 45)->nullable();
+        //     $table->uuid('user_created');
+        //     $table->string('activity');
+        //     $table->timestamp('created_at')->useCurrent();
+        //     $table->uuid('user_target');
+        // });
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateUserActivitysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_activitys');
+        // Schema::dropIfExists('user_activitys');
     }
 }

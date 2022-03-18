@@ -79,10 +79,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Backend', 'prefix' => 'backen
         Route::get('/', 'AboutController@page_index');
         Route::put('/', 'AboutController@page_index');
     });
+
+    Route::prefix('penyusun')->group(function () {
+        Route::get('/', 'PenyusunController@page_index');
+        Route::put('/', 'PenyusunController@page_index');
+    });
 });
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

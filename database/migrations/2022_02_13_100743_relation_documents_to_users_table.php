@@ -13,9 +13,9 @@ class RelationDocumentsToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->foreign('document_id')->references('id')->on('documents')->onDelete('cascade');
+        // });
     }
 
     /**
@@ -25,8 +25,8 @@ class RelationDocumentsToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_document_id_foreign');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropForeign('users_document_id_foreign');
+        // });
     }
 }

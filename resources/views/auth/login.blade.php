@@ -57,6 +57,10 @@
                             <a class="btn btn-link" href="{{ route('password.request') }}">
                                 {{ __('Lupa password?') }}
                             </a>
+                            |
+                            <a class="btn btn-link" href="{{ route('register') }}">
+                                {{ __('Buat akun baru') }}
+                            </a>
                         @endif
                     </div>
 

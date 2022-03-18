@@ -13,14 +13,14 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('title', 255);
-            $table->string('path', 255);
-            $table->enum('type', ['image', 'video', 'audio', 'other'])->default('other');
-            $table->boolean('uploaded')->default(false);
-            // $table->timestamps();
-        });
+        // Schema::create('documents', function (Blueprint $table) {
+        //     $table->uuid('id')->primary();
+        //     $table->string('title', 255);
+        //     $table->string('path', 255);
+        //     $table->enum('type', ['image', 'video', 'audio', 'other'])->default('other');
+        //     $table->boolean('uploaded')->default(false);
+        //     // $table->timestamps();
+        // });
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents');
+        // Schema::dropIfExists('documents');
     }
 }

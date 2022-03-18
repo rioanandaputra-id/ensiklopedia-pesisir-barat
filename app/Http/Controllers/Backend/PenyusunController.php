@@ -7,7 +7,7 @@ use App\Models\PageWeb;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
-class AboutController extends Controller
+class PenyusunController extends Controller
 {
 
     protected $request;
@@ -25,7 +25,7 @@ class AboutController extends Controller
                 'body' => 'required',
             ]);
 
-            $page = PageWeb::where('title', 'Tentang');
+            $page = PageWeb::where('title', 'Penyusun');
 
 
             if ($page->count() > 0) {
@@ -35,15 +35,15 @@ class AboutController extends Controller
             } else {
                 PageWeb::create([
                     'id' => Uuid::uuid4()->toString(),
-                    'title' => 'Tentang',
+                    'title' => 'Penyusun',
                     'body' => $this->request->get('body'),
                 ]);
             }
 
-            return redirect('backend/about')->with('success', 'Data berhasil diubah');
+            return redirect('backend/penyusun')->with('success', 'Data berhasil diubah');
         }
 
-        $about = PageWeb::where('title', 'Tentang')->first();
-        return view('Pages.Backend.About.index', compact('about'));
+        $penyusun = PageWeb::where('title', 'Penyusun')->first();
+        return view('Pages.Backend.Penyusun.index', compact('penyusun'));
     }
 }

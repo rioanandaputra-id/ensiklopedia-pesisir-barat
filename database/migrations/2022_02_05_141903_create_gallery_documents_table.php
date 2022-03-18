@@ -13,13 +13,13 @@ class CreateGalleryDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gallery_documents', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('gallery_album_id');
-            $table->foreignUuid('document_id');
-            // $table->string('description',150);
-            // $table->timestamps();
-        });
+        // Schema::create('gallery_documents', function (Blueprint $table) {
+        //     $table->uuid('id')->primary();
+        //     $table->foreignUuid('gallery_album_id');
+        //     $table->foreignUuid('document_id');
+        //     // $table->string('description',150);
+        //     // $table->timestamps();
+        // });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateGalleryDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gallery_documents');
+        // Schema::dropIfExists('gallery_documents');
     }
 }
