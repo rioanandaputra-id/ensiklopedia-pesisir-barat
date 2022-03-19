@@ -36,15 +36,15 @@ class UserController extends Controller
     {
         $this->authorize('isAdministrator');
         $users = User::where('id', $this->request->id)->first();
-        $documents = Document::where('id', $users->document_id)->first();
-        return view('Pages.Backend.Master.User.edit', compact('users', 'documents'));
+        // $documents = Document::where('id', $users->document_id)->first();
+        return view('Pages.Backend.Master.User.edit', compact('users'));
     }
 
     public function page_profile()
     {
         $users = User::where('id', Auth::user()->id)->first();
-        $documents = Document::where('id', $users->document_id)->first();
-        return view('Pages.Backend.Master.User.edit', compact('users', 'documents'));
+        // $documents = Document::where('id', $users->document_id)->first();
+        return view('Pages.Backend.Master.User.edit', compact('users'));
     }
 
     public function read_data()
@@ -57,16 +57,17 @@ class UserController extends Controller
 
         return FacadesDataTables::of($users)
             ->addColumn('photo', function ($users) {
-                $photo = Document::where('id', $users->document_id)->first();
-                if (!empty($photo)) {
-                    if ($photo->uploaded == 1) {
-                        return '<img src="' . url($photo->path) . '" width="50px" height="50px">';
-                    } else {
-                        return '<img src="' . $photo->path . '" width="50px" height="50px" />';
-                    }
-                } else {
-                    return '<img src="' . url('uploads/gallery/user/no-image.png') . '" width="50px" height="50px">';
-                }
+                // $photo = Document::where('id', $users->document_id)->first();
+                // if (!empty($photo)) {
+                //     if ($photo->uploaded == 1) {
+                //         return '<img src="' . url($photo->path) . '" width="50px" height="50px">';
+                //     } else {
+                //         return '<img src="' . $photo->path . '" width="50px" height="50px" />';
+                //     }
+                // } else {
+                //     return '<img src="' . url('uploads/gallery/user/no-image.png') . '" width="50px" height="50px">';
+                // }
+                return '<img src="' . url($users->user_image) . '" width="50px" height="50px">';
             })
             ->addColumn('checkbox', function ($users) {
                 return '<input type="checkbox" class="checkbox_item" name="checkbox_item[]" value="' . $users->id . '">';
@@ -103,11 +104,9 @@ class UserController extends Controller
         $time = time();
         $dir = 'uploads/gallery/user/';
         $user_id = Uuid::uuid4()->toString();
-        $document_id = Uuid::uuid4()->toString();
-
+        // $document_id = Uuid::uuid4()->toString();
         $user = new User();
-        $document = new Document();
-
+        // $document = new Document();
         $type = 'image';
         $file = $this->request->file('fotofile');
         $url = $this->request->input('fotourl');
@@ -119,37 +118,36 @@ class UserController extends Controller
         $active = $this->request->input('active');
 
         if (!empty($file)) {
-
             $title = $file->getClientOriginalName();
             $file->move(public_path($dir), $time . '-' . $title);
             $path = $dir . $time . '-' . $title;
-
-            $document->id = $document_id;
-            $document->title = $title;
-            $document->path = $path;
-            $document->type = $type;
-            $document->uploaded = 1;
-            $document->save();
+            $user->user_image = $path;
+            // $document->id = $document_id;
+            // $document->title = $title;
+            // $document->path = $path;
+            // $document->type = $type;
+            // $document->uploaded = 1;
+            // $document->save();
         } elseif (!empty($url)) {
-
-            $document->id = $document_id;
-            $document->title = $username;
-            $document->path = $url;
-            $document->type = $type;
-            $document->uploaded = 0;
-            $document->save();
+            $user->user_image = $url;
+            // $document->id = $document_id;
+            // $document->title = $username;
+            // $document->path = $url;
+            // $document->type = $type;
+            // $document->uploaded = 0;
+            // $document->save();
         } else {
-
-            $document->id = $document_id;
-            $document->title = 'default';
-            $document->path = $dir . '/default.png';
-            $document->type = $url;
-            $document->uploaded = 1;
-            $document->save();
+            $user->user_image = $dir . '/default.png';
+            // $document->id = $document_id;
+            // $document->title = 'default';
+            // $document->path = $dir . '/default.png';
+            // $document->type = $url;
+            // $document->uploaded = 1;
+            // $document->save();
         }
 
         $user->id = $user_id;
-        $user->document_id = $document->id;
+        // $user->document_id = $document->id;
         $user->role = $role;
         $user->name = $name;
         $user->username = $username;
@@ -186,7 +184,7 @@ class UserController extends Controller
         $type = 'image';
 
         $users = new User();
-        $documents = new Document();
+        // $documents = new Document();
         $new_document_id = Uuid::uuid4()->toString();
 
         $user_id = $this->request->input('id');
@@ -220,73 +218,67 @@ class UserController extends Controller
             $update_data['password'] = bcrypt($password);
         }
         $user = $users->where('id', $user_id)->first();
-        $user->update($update_data);
-        $document = $documents->where('id', $user->document_id)->first();
+        // $user->update($update_data);
+        // $document = $documents->where('id', $user->document_id)->first();
 
         if (!empty($file)) {
-            if (env('DOCUMENT_ID') == $document->id) {
-
+            if (env('image_default') == $user->user_image) {
                 $title = $file->getClientOriginalName();
                 $file->move(public_path($dir), $time . '-' . $title);
                 $path = $dir . $time . '-' . $title;
-
-                $documents->id = $new_document_id;
-                $documents->title = $title;
-                $documents->path = $path;
-                $documents->type = $type;
-                $documents->uploaded = 1;
-                $documents->save();
-
-                $users->where('id', $user_id)->update([
-                    'document_id' => $new_document_id
-                ]);
+                $user->user_image = $path;
+                // $documents->id = $new_document_id;
+                // $documents->title = $title;
+                // $documents->path = $path;
+                // $documents->type = $type;
+                // $documents->uploaded = 1;
+                // $documents->save();
+                // $users->where('id', $user_id)->update([
+                //     'document_id' => $new_document_id
+                // ]);
             } else {
-
-                if (file_exists(public_path($document->path))) {
-                    unlink(public_path($document->path));
+                if (file_exists(public_path($user->user_image))) {
+                    unlink(public_path($user->user_image));
                 }
-
                 $title = $file->getClientOriginalName();
                 $file->move(public_path($dir), $time . '-' . $title);
                 $path = $dir . $time . '-' . $title;
-                $documents->where('id', $user->document_id)->update([
-                    'title' => $title,
-                    'path' => $path,
-                    'type' => $type,
-                    'uploaded' => 1,
-                ]);
+                $user->user_image = $path;
+                // $documents->where('id', $user->document_id)->update([
+                //     'title' => $title,
+                //     'path' => $path,
+                //     'type' => $type,
+                //     'uploaded' => 1,
+                // ]);
             }
         }
 
         if (!empty($url)) {
-
-            if (env('DOCUMENT_ID') == $document->id) {
-
-                $documents->id = $new_document_id;
-                $documents->title = $username;
-                $documents->path = $url;
-                $documents->type = $type;
-                $documents->uploaded = 0;
-                $documents->save();
-
-                $users->where('id', $user_id)->update([
-                    'document_id' => $new_document_id
-                ]);
+            if (env('image_default') == $user->user_image) {
+                $user->user_image = $url;
+                // $documents->id = $new_document_id;
+                // $documents->title = $username;
+                // $documents->path = $url;
+                // $documents->type = $type;
+                // $documents->uploaded = 0;
+                // $documents->save();
+                // $users->where('id', $user_id)->update([
+                //     'document_id' => $new_document_id
+                // ]);
             } else {
-
-                if (file_exists(public_path($document->path))) {
-                    unlink(public_path($document->path));
+                if (file_exists(public_path($user->user_image))) {
+                    unlink(public_path($user->user_image));
                 }
-
-                $documents->where('id', $user->document_id)->update([
-                    'title' => $username,
-                    'path' => $url,
-                    'type' => $type,
-                    'uploaded' => 0,
-                ]);
+                $user->user_image = $url;
+                // $documents->where('id', $user->document_id)->update([
+                //     'title' => $username,
+                //     'path' => $url,
+                //     'type' => $type,
+                //     'uploaded' => 0,
+                // ]);
             }
         }
-
+        $user->update($update_data);
         return back()->with('success', 'Data berhasil diubah');
     }
 
@@ -306,13 +298,13 @@ class UserController extends Controller
 
         foreach ($id as $key => $value) {
             $user = User::where('id', $value)->first();
-            $document = Document::where('id', $user->document_id)->first();
+            // $document = Document::where('id', $user->document_id)->first();
 
-            if (env('DOCUMENT_ID') != $document->id) {
-                if (file_exists(public_path($document->path))) {
-                    unlink(public_path($document->path));
+            if (env('image_default') != $user->user_image) {
+                if (file_exists(public_path($user->user_image))) {
+                    unlink(public_path($user->user_image));
                 }
-                $document->delete();
+                // $document->delete();
             }
             $user->delete();
         }

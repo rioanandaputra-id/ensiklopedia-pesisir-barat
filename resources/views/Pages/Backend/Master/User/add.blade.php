@@ -73,7 +73,7 @@
                                             class="fa fa-link"></i> Via URL</button>
                                 </div>
                                 <div class="input-group-append">
-                                    <img src="{{ asset('assets/Backend/dist/img/user2-160x160.jpg') }}"
+                                    <img src="{{ url('/uploads/gallery/user/default.png') }}"
                                         alt="Foto Pengguna" class="img-thumbnail" id="imgPreview">
                                 </div>
                             </div>

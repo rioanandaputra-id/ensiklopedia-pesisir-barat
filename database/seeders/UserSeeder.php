@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'id' => strval(Uuid::uuid4()),
-                'user_image' => 'default.png',
+                'user_image' => '/uploads/gallery/user/default.png',
                 'role' => 'Administrator',
                 'name' => 'Administrator',
                 'username' => 'administrator',
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id' => strval(Uuid::uuid4()),
-                'user_image' => 'default.png',
+                'user_image' => '/uploads/gallery/user/default.png',
                 'role' => 'Contributor',
                 'name' => 'Contributor',
                 'username' => 'contributor',

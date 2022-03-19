@@ -78,7 +78,7 @@
                                             class="fa fa-link"></i> Via URL</button>
                                 </div>
                                 <div class="input-group-append">
-                                    <img src="{{ url($documents->path) }}"
+                                    <img src="{{ url($users->user_image) }}"
                                         alt="Foto Pengguna" class="img-thumbnail" id="imgPreview" width="300">
                                 </div>
                             </div>
