@@ -33,6 +33,7 @@ class ArticleController extends Controller
             'user:id,name'
         ])
         ->where('slug', $slug)
+        ->where('status', 'Terbit')
         ->first();
         DB::update('update article_posts set views = views + 1 where slug = ?', [$slug]);
         return view('Pages.Frontend.Article.index', compact('articles'));

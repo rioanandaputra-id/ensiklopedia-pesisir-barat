@@ -44,7 +44,7 @@ class BerandaController extends Controller
                 'article_index:id,indexx',
                 'article_category:id,categoryy',
                 'user:id,name'
-            ])
+            ])->where('status', 'Terbit')
                 ->when($index, function ($query, $index) {
                     return $query->whereRelation('article_index', 'indexx', $index);
                 })

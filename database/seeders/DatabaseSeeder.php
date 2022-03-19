@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             ArticleIndexSeeder::class,
             DocumentSeeder::class,
             UserSeeder::class,
-            ArticlePostSeeder::class,
+            // ArticlePostSeeder::class,
         ]);
     }
 }
