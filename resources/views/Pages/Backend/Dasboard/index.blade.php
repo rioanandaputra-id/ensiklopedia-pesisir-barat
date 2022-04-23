@@ -204,19 +204,17 @@
                                     <thead class="bg-success">
                                         <tr>
                                             <th>ALAMAT IP</th>
-                                            {{-- <th>KATEGORI</th> --}}
                                             <th>HALAMAN</th>
                                             <th>WAKTU</th>
                                         </tr>
                                     </thead>
-                                    <tfoot class="bg-green">
+                                    {{-- <tfoot class="bg-green">
                                         <tr>
                                             <th>ALAMAT IP</th>
-                                            {{-- <th>KATEGORI</th> --}}
                                             <th>HALAMAN</th>
                                             <th>WAKTU</th>
                                         </tr>
-                                    </tfoot>
+                                    </tfoot> --}}
                                 </table>
                             </div>
                         </div>

@@ -51,14 +51,14 @@
                                 <th style="width: 80px">AKSI</th>
                             </tr>
                         </thead>
-                        <tfoot class="bg-green">
+                        {{-- <tfoot class="bg-green">
                             <tr>
                                 <th><input type="checkbox" class="checkbox_all"></th>
                                 <th>NAMA KATEGORI ARTIKEL</th>
                                 <th>JUMLAH ARTIKEL</th>
                                 <th style="width: 80px">AKSI</th>
                             </tr>
-                        </tfoot>
+                        </tfoot> --}}
                     </table>
                 </div>
             </div>

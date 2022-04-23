@@ -1,13 +1,16 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('backend') }}" class="brand-link">
-        <img src="{{ asset('assets/Frontend/img/acc.png') }}" alt="AdminLTE Logo" class="brand-image p-1 mt-1">
-        <span class="brand-text font-weight" style="font-size: 17px;"><strong>ENSIKLOPEDIA PESBAR</strong></span>
+        <img src="{{ asset('assets/Frontend/img/acc.png') }}" alt="AdminLTE Logo" class="brand-image mt-2">
+        <div class="row">
+            <span class="brand-text" style="font-size: 17px;"><strong>ENSIKLOPEDIA KAB.</strong></span>
+            <span class="brand-text" style="font-size: 17px;"><strong>PESISIR BARAT</strong></span>
+        </div>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="user-panel mt-2 pb-2 mb-2 d-flex">
+        <div class="user-panel mt-4 pb-2 mb-2 d-flex">
             <div class="image mt-1">
                 <img src="{{url(Auth::user()->user_image)}}" class="mt-2"
                     alt="User Image">

@@ -47,13 +47,13 @@
                                 <th>JUMLAH ARTIKEL</th>
                             </tr>
                         </thead>
-                        <tfoot class="bg-green">
+                        {{-- <tfoot class="bg-green">
                             <tr>
                                 <th><input type="checkbox" class="checkbox_all"></th>
                                 <th>NAMA INDEK ARTIKEL</th>
                                 <th>JUMLAH ARTIKEL</th>
                             </tr>
-                        </tfoot>
+                        </tfoot> --}}
                     </table>
                 </div>
             </div>

@@ -19,6 +19,7 @@ class ArticlePost extends Model
         'article_category_id',
         'article_index_id',
         'user_id',
+        'article_image',
         'slug',
         'title',
         'body',

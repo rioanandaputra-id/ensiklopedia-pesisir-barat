@@ -18,6 +18,7 @@ class CreateArticlePostsTable extends Migration
             $table->foreignUuid('article_category_id');
             $table->foreignUuid('article_index_id');
             $table->foreignUuid('user_id');
+            $table->string('article_image', 255);
             $table->char('slug', 255)->unique();
             $table->string('title', 255);
             $table->longText('body');

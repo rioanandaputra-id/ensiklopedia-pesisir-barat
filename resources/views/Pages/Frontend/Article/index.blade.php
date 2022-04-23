@@ -10,6 +10,7 @@
 <div class="row" style="margin-bottom: 20px;">
     <div class="col">
         <div class="bg-white">
+            <center><img src="/<?= $articles->article_image ?>" width="400px" alt="..."></center>
             <h3><a href="{{$articles->slug}}">{{$articles->title}}</a></h3>
             <h5 style="color: black;">
                   Penulis: <a style="color: black;" href="../author/{{$articles->user->name}}">{{$articles->user->name}}</a>

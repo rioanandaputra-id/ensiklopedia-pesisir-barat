@@ -2,6 +2,7 @@
 @section('title', 'Halaman Artikel - Tambah')
 
 @section('css')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/Backend/plugins/summernote/summernote-bs4.min.css') }}">
@@ -54,7 +55,7 @@
                 <div class="card card-outline card-info">
                     <div class="card-body">
 
-                        <form method="POST" action="{{ url('backend/article/create') }}">
+                        <form method="POST" action="{{ url('backend/article/create') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="title" class="form-label">Judul Artikel: <i
@@ -68,7 +69,22 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label for="file">Foto Artikel: <i class="text-danger">*</i></label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type='file' id="fotofile" class="btn btn-success mr-2" name="fotofile">
+                                        <input type="text" name="fotourl" id="fotourl" hidden>
 
+                                        <button class="btn btn-warning p-2" id="btnurl" type="button" style="width: 430px">
+                                            <i class="fa fa-link"></i> Via URL</button>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <img src="" alt="Foto Artikel"
+                                            class="img-thumbnail" id="imgPreview" width="300">
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="mb-3">
                                 <label for="category" class="form-label">Kategori Artikel:
@@ -87,8 +103,6 @@
                                 @enderror
                             </div>
 
-
-
                             <div class="mb-3">
                                 <label for="body" class="form-label">Isi Artikel: <i
                                         class="text-danger">*</i></label>
@@ -100,9 +114,6 @@
                                     </div>
                                 @enderror
                             </div>
-
-
-
 
                             <div class="mb-3">
                                 <button type="submit" class="d-inline btn btn-success mb-4"> <i
@@ -123,6 +134,51 @@
 @endsection
 
 @section('js')
+    <script>
+        $(document).ready(function() {
+
+            $('#fotofile').change(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imgPreview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            $('#btnurl').click(function() {
+                swal.fire({
+                    title: 'Masukkan URL Foto',
+                    input: 'text',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit',
+                    showLoaderOnConfirm: true,
+                    preConfirm: (url) => {
+                        return fetch(url)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(response.statusText)
+                                }
+                                return response.url
+                            })
+                            .catch(error => {
+                                swal.showValidationMessage(
+                                    `Gagal Mengambil URL Foto. coba dari sumber lain!`
+                                )
+                            })
+                    },
+                    allowOutsideClick: () => !swal.isLoading()
+                }).then((result) => {
+                    if (result.value) {
+                        $('#imgPreview').attr('src', result.value);
+                        $('#fotourl').val(result.value);
+                    }
+                })
+            });
+        });
+    </script>
     <script src="{{ asset('assets/Backend/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/Backend/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>

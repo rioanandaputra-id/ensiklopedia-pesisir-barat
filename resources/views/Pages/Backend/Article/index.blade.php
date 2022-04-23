@@ -63,6 +63,7 @@
                         <thead class="bg-green">
                             <tr>
                                 <th><input type="checkbox" class="checkbox_all"></th>
+                                <th>FOTO</th>
                                 <th style="width: 350px">JUDUL</th>
                                 <th>INDEK</th>
                                 <th>KATEGORI</th>
@@ -72,7 +73,7 @@
                                 <th style="width: 80px">AKSI</th>
                             </tr>
                         </thead>
-                        <tfoot class="bg-green">
+                        {{-- <tfoot class="bg-green">
                             <tr>
                                 <th><input type="checkbox" class="checkbox_all"></th>
                                 <th>JUDUL</th>
@@ -83,7 +84,7 @@
                                 <th>DIPERBAHARUI</th>
                                 <th>AKSI</th>
                             </tr>
-                        </tfoot>
+                        </tfoot> --}}
                     </table>
                 </div>
             </div>
@@ -117,6 +118,16 @@
                         orderable: false,
                         searchable: false,
                         className: 'text-center',
+                    },
+                    {
+                        data: 'article_image',
+                        name: 'article_image',
+                        orderable: false,
+                        searchable: false,
+                        className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            return '<img src="/' + data + '" class="img-fluid" style="max-width: 100px;">';
+                        }
                     },
                     {
                         data: 'title',

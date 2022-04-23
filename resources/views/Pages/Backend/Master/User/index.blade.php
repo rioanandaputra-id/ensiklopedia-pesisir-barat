@@ -59,7 +59,7 @@
                                 <th style="width: 80px">AKSI</th>
                             </tr>
                         </thead>
-                        <tfoot class="bg-green">
+                        {{-- <tfoot class="bg-green">
                             <tr>
                                 <th><input type="checkbox" class="checkbox_all"></th>
                                 <th>FOTO</th>
@@ -71,7 +71,7 @@
                                 <th>DIPERBAHARUI</th>
                                 <th>AKSI</th>
                             </tr>
-                        </tfoot>
+                        </tfoot> --}}
                     </table>
                 </div>
             </div>

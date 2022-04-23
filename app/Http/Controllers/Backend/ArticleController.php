@@ -50,23 +50,41 @@ class ArticleController extends Controller
 
         $id = Uuid::uuid4();
         $category_id = $this->request->input('category_id');
-        $title = $this->request->input('title');
+        $titlearticle = $this->request->input('title');
         $body = $this->request->input('body');
         $user_id = Auth::user()->id;
-        $pott = Str::upper(Str::substr($title, 0, 1));
+        $pott = Str::upper(Str::substr($titlearticle, 0, 1));
         $index = ArticleIndex::where('indexx', $pott)->select('id')->first();
+        $post = new ArticlePost();
+
+
+        $time = time();
+        $dir = 'uploads/gallery/article/';
+        $file = $this->request->file('fotofile');
+        $url = $this->request->input('fotourl');
+
         if(empty($index)){
             $index = ArticleIndex::where('indexx', '0-9')->select('id')->first();
         }
 
-        $post = ArticlePost::create([
-            'id' => $id,
-            'title' => $title,
-            'body' => $body,
-            'article_category_id' => $category_id,
-            'article_index_id' => $index->id,
-            'user_id' => $user_id
-        ]);
+        if (!empty($file)) {
+            $title = $file->getClientOriginalName();
+            $file->move(public_path($dir), $time . '-' . $title);
+            $path = $dir . $time . '-' . $title;
+            $post->article_image = $path;
+        } elseif (!empty($url)) {
+            $post->article_image = $url;
+        } else {
+            $post->article_image = env('image_default');
+        }
+
+        $post->id = $id;
+        $post->title = $titlearticle;
+        $post->body = $body;
+        $post->article_category_id = $category_id;
+        $post->article_index_id = $index->id;
+        $post->user_id = $user_id;
+        $post->save();
 
         if ($post) {
             return redirect(url('backend/article/add'))
@@ -87,7 +105,7 @@ class ArticleController extends Controller
     {
         if ($this->request->ajax()) {
             $model = ArticlePost::with('article_index', 'article_category', 'user')
-                ->select('article_index_id', 'article_category_id', 'user_id', 'title', 'status', 'updated_at', 'slug');
+                ->select('article_index_id', 'article_category_id', 'user_id', 'article_image', 'title', 'status', 'updated_at', 'slug');
             if (!empty($this->request->post('status'))) {
                 $model->where('status', $this->request->post('status'));
             }
@@ -116,8 +134,6 @@ class ArticleController extends Controller
                     } else {
                         return $btnedit;
                     }
-
-
                 })->addColumn('checkbox', function ($model) {
                     return '<input type="checkbox" class="checkbox_item" name="checkbox_item[]" value="' . $model->slug . '">';
                 })->rawColumns(['action', 'checkbox'])
@@ -136,21 +152,58 @@ class ArticleController extends Controller
 
         $id = $this->request->input('slug');
         $category_id = $this->request->input('category_id');
-        $title = $this->request->input('title');
+        $titlearticle = $this->request->input('title');
         $body = $this->request->input('body');
-        $pott = Str::upper(Str::substr($title, 0, 1));
+        $pott = Str::upper(Str::substr($titlearticle, 0, 1));
         $index = ArticleIndex::where('indexx', $pott)->select('id')->first();
         if(empty($index)){
             $index = ArticleIndex::where('indexx', '0-9')->select('id')->first();
         }
 
-        $post = ArticlePost::where('slug', $id);
-        $post->update([
-            'title' => $title,
+        $post = ArticlePost::where('slug', $id)->first();
+
+        $article_image = env('image_default');
+        $time = time();
+        $dir = 'uploads/gallery/article/';
+        $file = $this->request->file('fotofile');
+        $url = $this->request->input('fotourl');
+
+        if (!empty($file)) {
+            if (env('image_default') ==  $post->article_image) {
+                $title = $file->getClientOriginalName();
+                $file->move(public_path($dir), $time . '-' . $title);
+                $path = $dir . $time . '-' . $title;
+                $post->article_image = $path;
+            } else {
+                if (file_exists(public_path( $post->article_image))) {
+                    unlink(public_path( $post->article_image));
+                }
+                $title = $file->getClientOriginalName();
+                $file->move(public_path($dir), $time . '-' . $title);
+                $path = $dir . $time . '-' . $title;
+                $post->article_image = $path;
+            }
+        }
+
+        if (!empty($url)) {
+            if (env('image_default') ==  $post->article_image) {
+                $post->article_image = $url;
+            } else {
+                if (file_exists(public_path( $post->article_image))) {
+                    unlink(public_path( $post->article_image));
+                }
+                $post->article_image = $url;
+            }
+        }
+
+        $update_data = [
+            'title' => $titlearticle,
             'body' => $body,
             'article_category_id' => $category_id,
             'article_index_id' => $index->id
-        ]);
+        ];
+
+        $post->update($update_data);
 
         if ($post) {
             return redirect(url('backend/article'))
@@ -180,10 +233,15 @@ class ArticleController extends Controller
 
     public function delete_data()
     {
-        $this->validate($this->request, [
-            'checkbox_item' => 'required'
-        ]);
         $id = $this->request->input('checkbox_item');
-        ArticlePost::whereIn('slug', $id)->delete();
+        foreach ($id as $key => $value) {
+            $post = ArticlePost::where('slug', $value)->first();
+            if (env('image_default') != $post->article_image) {
+                if (file_exists(public_path($post->article_image))) {
+                    unlink(public_path($post->article_image));
+                }
+            }
+            $post->delete();
+        }
     }
 }
